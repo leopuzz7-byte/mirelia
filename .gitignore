@@ -1,0 +1,12 @@
+# Оригинальные большие PNG (используем webp-версии)
+ChatGPT Image*.png
+
+# Старое видео Kling (переименовано в forest-video.mp4)
+kling_*.mp4
+
+# Бэкап
+index_v3_backup.html
+
+# Системные
+.DS_Store
+Thumbs.db

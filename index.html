@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МИРЕЛИЯ — Мир, где исполняются мечты</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#060A1C;--navy2:#0A1228;--navy3:#0D1535;
+  --gold:#C9A84C;--gold2:#E8C96A;--gold3:#F5DFA0;
+  --lavender:#9B8FE8;--white:#F0EDE8;
+}
+html{font-size:16px}
+body{background:var(--navy);color:var(--white);font-family:'Cormorant Garamond',serif;overflow-x:hidden;cursor:none}
+
+/* ── CURSOR ── */
+#cur{position:fixed;width:10px;height:10px;background:var(--gold2);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 6px var(--gold2),0 0 18px rgba(232,201,106,.35)}
+#cur-ring{position:fixed;width:34px;height:34px;border:1px solid rgba(232,201,106,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
+body:has(a:hover) #cur-ring,body:has(button:hover) #cur-ring{width:46px;height:46px;border-color:rgba(232,201,106,.7)}
+
+/* ── STARS CANVAS (fixed bg) ── */
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 50px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(6,10,28,.85) 0%,transparent 100%)}
+.nav-logo{font-family:'Cinzel',serif;font-size:18px;letter-spacing:.2em;background:linear-gradient(135deg,var(--gold3),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:32px}
+.nav-links a{color:rgba(240,237,232,.5);text-decoration:none;font-size:12px;letter-spacing:.15em;text-transform:uppercase;transition:color .3s;cursor:none}
+.nav-links a:hover{color:var(--gold2)}
+
+/* ════════════════════════
+   SCENE 1 — HERO
+════════════════════════ */
+#s1{position:relative;z-index:1;height:1050vh}
+#s1-sticky{
+  position:sticky;top:0;height:100vh;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+
+/* Фоновый слой — osnova.jpeg */
+#s1-bg{
+  position:absolute;inset:0;z-index:1;
+  background:url('osnova.jpeg') center 38% / cover no-repeat;
+  transform-origin:50% 38%;
+  will-change:transform;
+}
+/* Лёгкое затемнение для читаемости лого */
+#s1-bg::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(4,8,20,.42);
+}
+
+/* Слой с 15.jpeg — зверьки у дерева */
+#s1-over15{
+  position:absolute;inset:0;z-index:2;
+  opacity:0;overflow:hidden;pointer-events:none;
+}
+#s1-over15 img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center 30%;
+  transform:scale(1.12);display:block;
+}
+#s1-over15-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(4,8,20,.1) 0%,rgba(4,8,20,.6) 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  padding-bottom:80px;opacity:0;
+}
+#s1-over15-overlay .ov-hint{
+  font-size:12px;letter-spacing:.3em;color:rgba(232,201,106,.7);
+  text-transform:uppercase;margin-bottom:10px;text-align:center;
+}
+#s1-over15-overlay .ov-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(26px,4vw,50px);
+  color:var(--white);letter-spacing:.14em;text-align:center;
+}
+
+/* Канвас бабочек + искр */
+#magic-canvas{position:absolute;inset:0;z-index:3;pointer-events:none}
+
+/* Hero content */
+#hero-content{
+  position:relative;z-index:10;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+}
+#hero-emblem{
+  position:relative;
+  width:min(320px,44vw);
+  margin-bottom:-6px;
+  filter:drop-shadow(0 0 24px rgba(201,168,76,.55)) drop-shadow(0 0 55px rgba(201,168,76,.2))
+}
+#hero-emblem img{width:100%;height:auto;display:block}
+.emblem-glow{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:130%;height:130%;
+  background:radial-gradient(circle,rgba(201,168,76,.14) 0%,transparent 65%);
+  border-radius:50%;
+  animation:pulseG 4s ease-in-out infinite;
+  pointer-events:none
+}
+@keyframes pulseG{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}}
+
+#hero-logo-text{
+  width:min(460px,62vw);
+  opacity:0;transform:translateY(14px);
+  margin-bottom:40px;
+  filter:drop-shadow(0 2px 20px rgba(0,0,0,.7)) drop-shadow(0 0 12px rgba(201,168,76,.25))
+}
+#hero-logo-text img{width:100%;height:auto;display:block}
+
+.hero-cta{
+  display:inline-block;padding:14px 44px;
+  border:1px solid var(--gold);color:var(--gold2);
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;text-decoration:none;cursor:none;
+  position:relative;overflow:hidden;opacity:0;
+  transition:background .3s,color .3s;
+  background:rgba(4,8,20,.3);backdrop-filter:blur(4px);
+}
+.hero-cta::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.18),transparent);animation:shim 3s infinite}
+@keyframes shim{0%{left:-100%}100%{left:200%}}
+.hero-cta:hover{background:rgba(201,168,76,.1);color:var(--gold3)}
+
+/* Scroll hint */
+.scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  z-index:15;animation:fadeUpIn 1s 3s forwards;opacity:0
+}
+@keyframes fadeUpIn{to{opacity:1}}
+.scroll-hint span{font-size:10px;letter-spacing:.25em;color:rgba(201,168,76,.4);text-transform:uppercase}
+.scroll-bar{width:1px;height:44px;background:linear-gradient(180deg,var(--gold),transparent);animation:scrollP 2s infinite}
+@keyframes scrollP{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ════════════════════════
+   SCENE 2 — FOREST (pinned)
+════════════════════════ */
+#s2{position:relative;z-index:1;background:linear-gradient(180deg,var(--navy) 0%,#071020 100%)}
+.s2-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.s2-bg{position:absolute;inset:0;background:linear-gradient(180deg,#040C18 0%,#030810 100%)}
+.trees{position:absolute;bottom:0;left:0;right:0;height:35%}
+.s2-quote{position:absolute;top:12%;left:50%;transform:translateX(-50%);width:80%;max-width:700px;text-align:center;z-index:10;opacity:0}
+.s2-quote p{font-size:clamp(20px,3.5vw,42px);font-weight:300;font-style:italic;line-height:1.5;color:var(--white)}
+.s2-quote em{color:var(--gold2);font-style:normal}
+.chars{position:absolute;bottom:18%;width:100%;display:flex;justify-content:center;align-items:flex-end;gap:clamp(16px,4vw,60px);z-index:5;padding:0 5%}
+.char{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;transform:translateY(30px)}
+.char-name{font-size:11px;letter-spacing:.15em;color:rgba(201,168,76,.5);text-transform:uppercase}
+.char svg{filter:drop-shadow(0 0 8px rgba(201,168,76,.2))}
+
+/* ════════════════════════
+   SCENE 3 — CATALOG
+════════════════════════ */
+#s3{position:relative;z-index:1;background:url('mireliya_12.jpg') center/cover no-repeat;padding:100px 5% 120px;display:flex;flex-direction:column;align-items:center}
+#s3::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(10,20,8,.18),rgba(5,12,18,.28));pointer-events:none}
+.sec-title{font-family:'Cinzel',serif;font-size:clamp(18px,2.5vw,30px);color:var(--gold3);letter-spacing:.15em;text-align:center;opacity:0;transform:translateY(28px);position:relative;z-index:2;text-shadow:0 2px 24px rgba(0,0,0,.7),0 0 40px rgba(201,168,76,.3)}
+.sec-sub{font-size:clamp(13px,1.3vw,17px);color:rgba(240,237,232,.75);letter-spacing:.2em;text-align:center;margin:10px 0 70px;opacity:0;position:relative;z-index:2;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.crystals{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:860px;width:100%;position:relative;z-index:2}
+@media(max-width:640px){.crystals{grid-template-columns:repeat(2,1fr)}}
+.ccard{position:relative;aspect-ratio:.85;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:22px 16px;cursor:none;opacity:0;transform:translateY(44px) scale(.93);transition:transform .4s ease,box-shadow .4s,border-color .3s;border:1px solid rgba(255,255,255,.22);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.07);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ccard:hover{transform:translateY(-8px) scale(1.04) !important;box-shadow:0 20px 50px rgba(0,0,0,.25),0 0 36px rgba(201,168,76,.18);border-color:rgba(201,168,76,.5)}
+.ccard:hover .cglow{opacity:.55}
+.ccard:hover .ci{transform:translateX(-50%) scale(1.1);filter:drop-shadow(0 10px 30px rgba(0,0,0,.4)) brightness(1.06)}
+.cglow{position:absolute;inset:0;opacity:.2;transition:opacity .4s;border-radius:16px}
+.ccard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:45%;background:linear-gradient(transparent,rgba(4,8,24,.65));border-radius:0 0 16px 16px;z-index:1;pointer-events:none}
+.ci{position:absolute;top:7%;left:50%;transform:translateX(-50%);height:68%;width:auto;max-width:90%;object-fit:contain;transition:transform .4s,filter .4s;filter:drop-shadow(0 6px 22px rgba(0,0,0,.28));z-index:0}
+.cname{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--white);text-align:center;position:relative;z-index:2;margin-bottom:3px;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.ccnt{font-size:11px;color:rgba(240,237,232,.65);position:relative;z-index:2;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.catalog-btn{display:inline-block;margin-top:52px;padding:15px 52px;border:1px solid var(--gold);color:var(--gold2);font-family:'Cinzel',serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;cursor:none;position:relative;overflow:hidden;background:rgba(4,8,20,.3);backdrop-filter:blur(4px);border-radius:4px;transition:background .3s,color .3s;z-index:2}
+.catalog-btn:hover{background:rgba(201,168,76,.12);color:var(--gold3)}
+.catalog-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.18),transparent);animation:shim 3s infinite}
+
+/* ════════════════════════
+   VIDEO LAYER inside s1
+════════════════════════ */
+#s1-video-wrap{
+  position:absolute;inset:0;z-index:4;
+  opacity:0;pointer-events:none;
+}
+#forest-video{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center center;
+  display:block;
+}
+
+/* ════════════════════════
+   SECTION CHARS — знакомство с персонажами
+════════════════════════ */
+#s-chars{position:relative;z-index:1;height:620vh}
+#s-chars-sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--navy)}
+
+#s-chars-intro{
+  position:absolute;inset:0;z-index:20;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+#s-chars-intro-inner{
+  text-align:center;
+  animation:fadeUpIn 1.2s .4s both;
+}
+#s-chars-intro-inner .ci-hint{
+  font-size:clamp(26px,3.5vw,46px);letter-spacing:.22em;
+  color:rgba(201,168,76,.75);text-transform:uppercase;margin-bottom:18px;
+}
+#s-chars-intro-inner .ci-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(28px,5vw,56px);
+  color:var(--white);letter-spacing:.13em;
+}
+
+.char-slide{
+  position:absolute;inset:0;opacity:0;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.char-slide.rev .char-photo{order:2}
+.char-slide.rev .char-info{order:1}
+
+.char-photo{
+  position:relative;overflow:hidden;order:1;
+}
+.char-photo img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center top;
+  transform:scale(1.1);display:block;
+}
+.char-photo::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 48%,var(--navy) 100%);
+}
+.char-slide.rev .char-photo::after{
+  background:linear-gradient(270deg,transparent 48%,var(--navy) 100%);
+}
+.char-photo-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 65% at 50% 85%,rgba(201,168,76,.1) 0%,transparent 60%);
+}
+
+.char-info{
+  order:2;position:relative;z-index:2;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 9% 0 4%;gap:20px;
+}
+.char-slide.rev .char-info{padding:0 4% 0 9%}
+
+.char-num{font-size:11px;letter-spacing:.3em;color:rgba(201,168,76,.4);text-transform:uppercase}
+.char-name-big{
+  font-family:'Cinzel',serif;
+  font-size:clamp(34px,5.2vw,70px);
+  color:var(--white);letter-spacing:.08em;line-height:1.05;
+}
+.char-divider{width:52px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.char-story{
+  font-size:clamp(15px,1.35vw,19px);
+  font-weight:300;font-style:italic;
+  color:rgba(240,237,232,.62);
+  line-height:1.78;max-width:400px;
+}
+.char-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:.18em;
+  color:var(--gold);text-transform:uppercase;
+}
+
+@media(max-width:700px){
+  .char-slide,.char-slide.rev{grid-template-columns:1fr;grid-template-rows:52vh 1fr}
+  .char-photo{height:52vh}
+  .char-photo::after,.char-slide.rev .char-photo::after{
+    background:linear-gradient(180deg,transparent 45%,var(--navy) 100%)}
+  .char-info,.char-slide.rev .char-info{padding:20px 6%;order:2}
+  .char-photo,.char-slide.rev .char-photo{order:1}
+}
+.icard{display:flex;flex-direction:column;align-items:center;cursor:none;opacity:0;transform:translateY(36px)}
+.ishape{width:100%;aspect-ratio:1.7;position:relative;margin-bottom:18px;transition:transform .4s}
+.icard:hover .ishape{transform:translateY(-14px) scale(1.05)}
+.ishape .terrain{position:absolute;bottom:0;left:0;right:0;height:100%;border-radius:45% 45% 0 0 / 15% 15% 0 0;overflow:hidden}
+.ishape .isha-shadow{position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);width:55%;height:7px;background:rgba(0,0,0,.45);border-radius:50%;filter:blur(7px);transition:all .4s}
+.icard:hover .isha-shadow{width:45%;bottom:-22px;opacity:.4}
+.iname{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--white);text-align:center;margin-bottom:3px}
+.icnt{font-size:11px;color:rgba(240,237,232,.35)}
+
+/* ════════════════════════
+   SCENE 6 — REVIEWS
+════════════════════════ */
+#s6{position:relative;z-index:1;min-height:100vh;background:linear-gradient(180deg,#030810 0%,#050C18 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:90px 5%;overflow:hidden}
+#fly-canvas{position:absolute;inset:0;z-index:1;pointer-events:none}
+#fly-canvas.active{pointer-events:auto}
+.s6-head{position:relative;z-index:5;text-align:center;margin-bottom:12px;opacity:0;transform:translateY(20px)}
+.s6-hint{font-size:13px;color:rgba(240,237,232,.28);letter-spacing:.15em;font-style:italic;text-align:center;position:relative;z-index:5;margin-bottom:50px}
+.rcard{position:absolute;background:rgba(6,10,28,.93);border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:18px 22px;width:250px;z-index:10;opacity:0;pointer-events:none;transform:scale(.8);transition:opacity .3s,transform .3s;backdrop-filter:blur(10px)}
+.rcard.on{opacity:1;transform:scale(1)}
+.rcard .rstars{color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:7px}
+.rcard .rtxt{font-style:italic;font-size:14px;line-height:1.6;color:var(--white);margin-bottom:10px}
+.rcard .rauth{font-size:11px;color:rgba(240,237,232,.45);letter-spacing:.1em}
+.rcard .rclose{position:absolute;top:10px;right:12px;font-size:16px;color:rgba(240,237,232,.3);cursor:none;transition:color .2s;background:none;border:none;padding:0}
+.rcard .rclose:hover{color:var(--gold)}
+
+/* ════════════════════════
+   SCENE 7 — SUBSCRIBE
+════════════════════════ */
+#s7{position:relative;z-index:1;min-height:80vh;background:linear-gradient(180deg,#040A14 0%,#080F22 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 5%;overflow:hidden}
+.owl-wrap{opacity:0;transform:translateY(-50px);margin-bottom:36px}
+.sub-form{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;max-width:420px;opacity:0;transform:translateY(24px)}
+.sub-lbl{font-size:clamp(18px,2.5vw,28px);font-weight:300;font-style:italic;color:var(--white);text-align:center;line-height:1.5;margin-bottom:6px}
+.sub-inp{width:100%;padding:14px 24px;background:rgba(240,237,232,.04);border:1px solid rgba(201,168,76,.28);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:16px;outline:none;text-align:center;transition:border-color .3s,background .3s}
+.sub-inp:focus{border-color:var(--gold);background:rgba(201,168,76,.05)}
+.sub-inp::placeholder{color:rgba(240,237,232,.28)}
+.sub-btn{padding:14px 48px;border:1px solid var(--gold);background:transparent;color:var(--gold2);font-family:'Cinzel',serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;cursor:none;transition:background .3s;position:relative;overflow:hidden}
+.sub-btn:hover{background:rgba(201,168,76,.1)}
+.sub-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.15),transparent);animation:shim 3s 1s infinite}
+.sub-success{opacity:0;transition:opacity .5s;font-style:italic;font-size:16px;color:var(--gold2);text-align:center;margin-top:10px}
+
+/* ════════════════════════
+   FOOTER
+════════════════════════ */
+footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(180deg,#080F22 0%,#030810 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;overflow:hidden}
+#const-canvas{position:absolute;inset:0;z-index:0;pointer-events:none}
+.ft-logo{font-family:'Cinzel',serif;font-size:clamp(26px,5vw,54px);font-weight:600;background:linear-gradient(180deg,var(--gold3),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.2em;position:relative;z-index:5;animation:lev 3.5s ease-in-out infinite}
+@keyframes lev{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.ft-tag{font-size:11px;letter-spacing:.3em;color:rgba(201,168,76,.45);text-transform:uppercase;margin:6px 0 44px;position:relative;z-index:5}
+.ft-nav{display:flex;gap:36px;flex-wrap:wrap;justify-content:center;position:relative;z-index:5;margin-bottom:36px}
+.ft-nav a{color:rgba(240,237,232,.4);text-decoration:none;font-size:11px;letter-spacing:.15em;text-transform:uppercase;transition:color .3s;cursor:none;position:relative}
+.ft-nav a::before{content:'✦';position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:7px;color:var(--gold);opacity:0;transition:opacity .3s}
+.ft-nav a:hover{color:var(--gold2)}
+.ft-nav a:hover::before{opacity:1}
+.ft-copy{font-size:10px;color:rgba(240,237,232,.18);letter-spacing:.1em;position:relative;z-index:5}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<canvas id="stars"></canvas>
+
+<nav>
+  <div class="nav-logo">МИРЕЛИЯ</div>
+  <div class="nav-links">
+    <a href="#s3">Каталог</a>
+    <a href="#s5">Коллекции</a>
+    <a href="#s7">Подписка</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════
+     SCENE 1 — HERO (750vh pinned)
+════════════════════════════════════════ -->
+<section id="s1">
+  <div id="s1-sticky">
+    <!-- Фоновый лес -->
+    <div id="s1-bg"></div>
+
+    <!-- Слой 2 — зверьки у дерева -->
+    <div id="s1-over15">
+      <img src="15.jpeg" alt="Зверьки в лесу Мирелии">
+      <div id="s1-over15-overlay">
+        <div>
+          <p class="ov-hint">Добро пожаловать</p>
+          <h2 class="ov-title">в Мирелию</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Бабочки + искры -->
+    <canvas id="magic-canvas"></canvas>
+
+    <!-- Лого -->
+    <div id="hero-content">
+      <div id="hero-emblem">
+        <img src="logo_emblem.png" alt="Мирелия">
+        <div class="emblem-glow"></div>
+      </div>
+      <div id="hero-logo-text">
+        <img src="logo_text.png" alt="МИРЕЛИЯ — Мир, где исполняются мечты">
+      </div>
+      <a href="#s3" class="hero-cta">Войти в мир</a>
+    </div>
+
+    <!-- Видео-слой (автоплей после анимаций) -->
+    <div id="s1-video-wrap">
+      <video id="forest-video" preload="auto" muted playsinline>
+        <source src="forest-video.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="scroll-hint" id="scroll-hint">
+      <span>Прокрути вниз</span>
+      <div class="scroll-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION CHARS — ЗНАКОМСТВО С ПЕРСОНАЖАМИ
+════════════════════════════════════════ -->
+<section id="s-chars">
+  <div id="s-chars-sticky">
+
+    <!-- Вступительный экран -->
+    <div id="s-chars-intro">
+      <div id="s-chars-intro-inner">
+        <p class="ci-hint">Жители Мирелии</p>
+        <p class="ci-title">Познакомьтесь</p>
+      </div>
+    </div>
+
+    <!-- 01 Мишка -->
+    <div class="char-slide" id="ch0">
+      <div class="char-photo">
+        <img src="photo_2026-06-10_12-50-31.jpg" alt="Мишка">
+        <div class="char-photo-glow"></div>
+      </div>
+      <div class="char-info">
+        <span class="char-num">01 / 05</span>
+        <h2 class="char-name-big">Тофу</h2>
+        <div class="char-divider"></div>
+        <p class="char-story">Самый добрый страж Мирелии. Его объятия теплее любого очага, а сердце хранит самые смелые мечты всего леса.</p>
+        <span class="char-badge">✦ Страж леса</span>
+      </div>
+    </div>
+
+    <!-- 02 Зайка -->
+    <div class="char-slide rev" id="ch1">
+      <div class="char-photo">
+        <img src="photo_2026-06-10_12-50-29.jpg" alt="Зайка">
+        <div class="char-photo-glow"></div>
+      </div>
+      <div class="char-info">
+        <span class="char-num">02 / 05</span>
+        <h2 class="char-name-big">Бонни</h2>
+        <div class="char-divider"></div>
+        <p class="char-story">Хранительница звёздных секретов. Она слышит голоса хрустальных камней и говорит на языке ночных светил.</p>
+        <span class="char-badge">✦ Хранительница тайн</span>
+      </div>
+    </div>
+
+    <!-- 03 Тигрёнок -->
+    <div class="char-slide" id="ch2">
+      <div class="char-photo">
+        <img src="photo_2026-06-10_12-50-25.jpg" alt="Тигрёнок">
+        <div class="char-photo-glow"></div>
+      </div>
+      <div class="char-info">
+        <span class="char-num">03 / 05</span>
+        <h2 class="char-name-big">Юки</h2>
+        <div class="char-divider"></div>
+        <p class="char-story">Смелый и стремительный. Его синие глаза видят сквозь любой туман — он первым бросается навстречу приключениям.</p>
+        <span class="char-badge">✦ Первый герой</span>
+      </div>
+    </div>
+
+    <!-- 04 Корги -->
+    <div class="char-slide rev" id="ch3">
+      <div class="char-photo">
+        <img src="photo_2026-06-10_12-50-27.jpg" alt="Корги">
+        <div class="char-photo-glow"></div>
+      </div>
+      <div class="char-info">
+        <span class="char-num">04 / 05</span>
+        <h2 class="char-name-big">Куки</h2>
+        <div class="char-divider"></div>
+        <p class="char-story">Весёлый путешественник и лучший друг. Знает дорогу во все семь миров Мирелии и никогда не теряет карту.</p>
+        <span class="char-badge">✦ Путешественник</span>
+      </div>
+    </div>
+
+    <!-- 05 Лиска -->
+    <div class="char-slide" id="ch4">
+      <div class="char-photo">
+        <img src="lisa_archi.webp" alt="Арчи" style="object-position:center center">
+        <div class="char-photo-glow"></div>
+      </div>
+      <div class="char-info">
+        <span class="char-num">05 / 05</span>
+        <h2 class="char-name-big">Арчи</h2>
+        <div class="char-divider"></div>
+        <p class="char-story">Мастер загадок и волшебных зелий. Его рыжий хвост светится в ночи, как маяк для заблудившихся путников.</p>
+        <span class="char-badge">✦ Мастер зелий</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- s2 удалён -->
+<section id="s2-removed" style="display:none">
+  <div class="s2-sticky">
+    <div class="s2-bg"></div>
+    <div class="trees" id="trees"></div>
+    <canvas class="s2-fireflies" id="ff-canvas" style="position:absolute;inset:0;z-index:3;pointer-events:none"></canvas>
+    <div class="s2-quote" id="s2-quote">
+      <p>Каждый ребёнок — <em>волшебник</em>.<br>Каждый сон — <em>приключение</em>.</p>
+    </div>
+    <div class="chars" id="chars">
+      <div class="char" id="c0">
+        <svg width="64" height="80" viewBox="0 0 64 80"><defs><filter id="cf"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <circle cx="32" cy="28" r="22" fill="#A0785A" filter="url(#cf)"/>
+          <circle cx="15" cy="10" r="9" fill="#A0785A"/><circle cx="15" cy="10" r="5" fill="#7A5A42"/>
+          <circle cx="49" cy="10" r="9" fill="#A0785A"/><circle cx="49" cy="10" r="5" fill="#7A5A42"/>
+          <ellipse cx="32" cy="60" rx="20" ry="24" fill="#A0785A"/>
+          <ellipse cx="32" cy="34" rx="10" ry="7" fill="#C09878" opacity=".7"/>
+          <circle cx="24" cy="24" r="4" fill="#2A1A10"/><circle cx="40" cy="24" r="4" fill="#2A1A10"/>
+          <circle cx="25" cy="23" r="1.5" fill="white"/><circle cx="41" cy="23" r="1.5" fill="white"/>
+          <ellipse cx="32" cy="31" rx="4" ry="3" fill="#C09878"/>
+          <circle cx="32" cy="31" r="2" fill="#2A1A10"/>
+        </svg>
+        <span class="char-name">Мишка</span>
+      </div>
+      <div class="char" id="c1">
+        <svg width="52" height="88" viewBox="0 0 52 88"><defs><filter id="cf2"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <ellipse cx="15" cy="24" rx="7" ry="22" fill="#E8E0D0" filter="url(#cf2)"/>
+          <ellipse cx="37" cy="24" rx="7" ry="22" fill="#E8E0D0" filter="url(#cf2)"/>
+          <ellipse cx="15" cy="24" rx="4" ry="16" fill="#E8A0B0" opacity=".6"/>
+          <ellipse cx="37" cy="24" rx="4" ry="16" fill="#E8A0B0" opacity=".6"/>
+          <circle cx="26" cy="50" r="20" fill="#E8E0D0"/>
+          <ellipse cx="26" cy="68" rx="16" ry="20" fill="#E8E0D0"/>
+          <circle cx="20" cy="47" r="4" fill="#2A1A10"/><circle cx="32" cy="47" r="4" fill="#2A1A10"/>
+          <circle cx="21" cy="46" r="1.5" fill="white"/><circle cx="33" cy="46" r="1.5" fill="white"/>
+          <ellipse cx="26" cy="54" rx="3" ry="2" fill="#E8A0B0"/>
+          <circle cx="26" cy="54" r="1.5" fill="#2A1A10"/>
+        </svg>
+        <span class="char-name">Зайка</span>
+      </div>
+      <div class="char" id="c2">
+        <svg width="66" height="78" viewBox="0 0 66 78"><defs><filter id="cf3"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <circle cx="33" cy="28" r="22" fill="#F0F0F0" filter="url(#cf3)"/>
+          <circle cx="18" cy="12" r="8" fill="#F0F0F0"/><circle cx="48" cy="12" r="8" fill="#F0F0F0"/>
+          <circle cx="18" cy="12" r="4" fill="#D0D0D0"/><circle cx="48" cy="12" r="4" fill="#D0D0D0"/>
+          <ellipse cx="33" cy="58" rx="20" ry="22" fill="#F0F0F0"/>
+          <line x1="22" y1="16" x2="26" y2="28" stroke="#333" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+          <line x1="44" y1="16" x2="40" y2="28" stroke="#333" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+          <circle cx="25" cy="26" r="4.5" fill="#3A90E0"/><circle cx="41" cy="26" r="4.5" fill="#3A90E0"/>
+          <circle cx="25" cy="26" r="2.5" fill="#1A3A80"/><circle cx="41" cy="26" r="2.5" fill="#1A3A80"/>
+          <circle cx="26" cy="25" r="1" fill="white"/><circle cx="42" cy="25" r="1" fill="white"/>
+          <ellipse cx="33" cy="34" rx="5" ry="4" fill="#E8C0A0"/>
+          <circle cx="33" cy="34" r="2" fill="#2A1A10"/>
+        </svg>
+        <span class="char-name">Тигрёнок</span>
+      </div>
+      <div class="char" id="c3">
+        <svg width="60" height="72" viewBox="0 0 60 72"><defs><filter id="cf4"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <circle cx="30" cy="30" r="22" fill="#E8A050" filter="url(#cf4)"/>
+          <polygon points="14,12 8,1 20,10" fill="#E8A050"/><polygon points="46,12 52,1 40,10" fill="#E8A050"/>
+          <ellipse cx="30" cy="52" rx="24" ry="20" fill="#E8A050"/>
+          <ellipse cx="30" cy="36" rx="12" ry="8" fill="#F5D0A0" opacity=".8"/>
+          <circle cx="22" cy="28" r="4" fill="#2A1A10"/><circle cx="38" cy="28" r="4" fill="#2A1A10"/>
+          <circle cx="23" cy="27" r="1.5" fill="white"/><circle cx="39" cy="27" r="1.5" fill="white"/>
+          <ellipse cx="30" cy="36" rx="4" ry="3" fill="#D08060"/>
+          <circle cx="30" cy="36" r="2" fill="#2A1A10"/>
+        </svg>
+        <span class="char-name">Корги</span>
+      </div>
+      <div class="char" id="c4">
+        <svg width="62" height="82" viewBox="0 0 62 82"><defs><filter id="cf5"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <circle cx="31" cy="28" r="22" fill="#D86020" filter="url(#cf5)"/>
+          <polygon points="15,10 6,0 22,12" fill="#D86020"/><polygon points="47,10 56,0 40,12" fill="#D86020"/>
+          <polygon points="15,10 9,4 20,12" fill="#F5C080"/><polygon points="47,10 53,4 42,12" fill="#F5C080"/>
+          <ellipse cx="31" cy="56" rx="20" ry="26" fill="#D86020"/>
+          <ellipse cx="31" cy="34" rx="12" ry="9" fill="#F0D0A0" opacity=".8"/>
+          <circle cx="23" cy="26" r="4" fill="#2A1A10"/><circle cx="39" cy="26" r="4" fill="#2A1A10"/>
+          <circle cx="24" cy="25" r="1.5" fill="white"/><circle cx="40" cy="25" r="1.5" fill="white"/>
+          <ellipse cx="31" cy="34" rx="4" ry="3" fill="#C07050"/>
+          <circle cx="31" cy="34" r="2" fill="#2A1A10"/>
+          <ellipse cx="48" cy="74" rx="14" ry="8" fill="#D86020" opacity=".6" transform="rotate(-20 48 74)"/>
+        </svg>
+        <span class="char-name">Лиска</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SCENE 3 — КАТАЛОГ
+════════════════════════════════════════ -->
+<section id="s3">
+  <h2 class="sec-title" id="s3t">Волшебный каталог</h2>
+  <p class="sec-sub" id="s3s">Выбери то, что нравится тебе</p>
+  <div class="crystals">
+    <div class="ccard">
+      <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(100,70,200,.35))"></div>
+      <img class="ci" src="cat3-bedding2.webp" alt="Полотенца">
+      <div class="cname">Полотенца</div><div class="ccnt">18 товаров</div>
+    </div>
+    <div class="ccard">
+      <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(120,50,220,.4))"></div>
+      <img class="ci" src="cat1-projector.webp" alt="Волшебный проектор">
+      <div class="cname">Волшебный проектор</div><div class="ccnt">8 товаров</div>
+    </div>
+    <div class="ccard">
+      <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(40,90,210,.35))"></div>
+      <img class="ci" src="cat2-bedding.webp" alt="Постельное">
+      <div class="cname">Постельное</div><div class="ccnt">14 товаров</div>
+    </div>
+    <div class="ccard">
+      <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(60,70,200,.38))"></div>
+      <img class="ci" src="cat4-gifts.webp" alt="Подарки">
+      <div class="cname">Подарки</div><div class="ccnt">24 товара</div>
+    </div>
+    <div class="ccard">
+      <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(90,50,170,.4))"></div>
+      <img class="ci" src="cat5-magic.webp" alt="Магический мир">
+      <div class="cname">Магический мир</div><div class="ccnt">8 товаров</div>
+    </div>
+    <div class="ccard">
+      <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(160,100,40,.35))"></div>
+      <img class="ci" src="cat6-toys.webp" alt="Персонажи">
+      <div class="cname">Персонажи</div><div class="ccnt">21 товар</div>
+    </div>
+  </div>
+  <a href="#" class="catalog-btn">Перейти в каталог</a>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     SCENE 6 — ОТЗЫВЫ (светлячки)
+════════════════════════════════════════ -->
+<section id="s6">
+  <canvas id="fly-canvas"></canvas>
+  <div class="s6-head sec-title" id="s6t">Голоса из Мирелии</div>
+  <p class="s6-hint">Нажми на светлячка — он расскажет историю</p>
+  <div class="rcard" id="r0"><div class="rstars">★★★★★</div><p class="rtxt">«Дочь не хочет выходить из комнаты. Говорит, что там живут настоящие феникс и дракон.»</p><div class="rauth">— Анна М., 2 детей</div><button class="rclose" onclick="closeReview(0)">✕</button></div>
+  <div class="rcard" id="r1"><div class="rstars">★★★★★</div><p class="rtxt">«Полотенца такие мягкие, что ребёнок сам тянется после ванной.»</p><div class="rauth">— Мария К.</div><button class="rclose" onclick="closeReview(1)">✕</button></div>
+  <div class="rcard" id="r2"><div class="rstars">★★★★★</div><p class="rtxt">«Подарила на день рождения коробку Мирелии — именинник сказал, что это лучший подарок в жизни.»</p><div class="rauth">— Светлана Р.</div><button class="rclose" onclick="closeReview(2)">✕</button></div>
+  <div class="rcard" id="r3"><div class="rstars">★★★★★</div><p class="rtxt">«Сын засыпает теперь за 10 минут вместо часа. Магия работает.»</p><div class="rauth">— Дмитрий П.</div><button class="rclose" onclick="closeReview(3)">✕</button></div>
+  <div class="rcard" id="r4"><div class="rstars">★★★★★</div><p class="rtxt">«Я взрослый и тоже хочу этот проектор. Мир Тигрёнка — лучшее что я видела.»</p><div class="rauth">— Ольга В.</div><button class="rclose" onclick="closeReview(4)">✕</button></div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SCENE 7 — ПОДПИСКА + СОВА
+════════════════════════════════════════ -->
+<section id="s7">
+  <div class="owl-wrap" id="owl-wrap">
+    <svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="owlGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <radialGradient id="galaxyL" cx="40%" cy="40%" r="70%"><stop offset="0%" stop-color="#60B0F0"/><stop offset="50%" stop-color="#7040C0"/><stop offset="100%" stop-color="#1A0060"/></radialGradient>
+        <radialGradient id="galaxyR" cx="60%" cy="40%" r="70%"><stop offset="0%" stop-color="#80C0FF"/><stop offset="50%" stop-color="#4060C0"/><stop offset="100%" stop-color="#100050"/></radialGradient>
+      </defs>
+      <ellipse cx="24" cy="130" rx="26" ry="46" fill="#E0D8C8" transform="rotate(-12 24 130)" filter="url(#owlGlow)"/>
+      <ellipse cx="136" cy="130" rx="26" ry="46" fill="#E0D8C8" transform="rotate(12 136 130)" filter="url(#owlGlow)"/>
+      <ellipse cx="80" cy="130" rx="48" ry="55" fill="#EDE6D6" filter="url(#owlGlow)"/>
+      <circle cx="80" cy="68" r="48" fill="#EDE6D6" filter="url(#owlGlow)"/>
+      <polygon points="54,28 46,8 62,26" fill="#D8D0C0"/><polygon points="54,28 50,12 60,26" fill="#C0B8A8"/>
+      <polygon points="106,28 114,8 98,26" fill="#D8D0C0"/><polygon points="106,28 110,12 100,26" fill="#C0B8A8"/>
+      <circle cx="62" cy="66" r="17" fill="#1A0840" stroke="rgba(200,180,240,0.3)" stroke-width="1"/>
+      <circle cx="62" cy="66" r="13" fill="url(#galaxyL)"/>
+      <circle cx="62" cy="66" r="8" fill="rgba(20,0,60,0.5)"/>
+      <circle cx="66" cy="62" r="3.5" fill="white" opacity=".75"/>
+      <circle cx="98" cy="66" r="17" fill="#1A0840" stroke="rgba(200,180,240,0.3)" stroke-width="1"/>
+      <circle cx="98" cy="66" r="13" fill="url(#galaxyR)"/>
+      <circle cx="98" cy="66" r="8" fill="rgba(20,0,60,0.5)"/>
+      <circle cx="102" cy="62" r="3.5" fill="white" opacity=".75"/>
+      <polygon points="74,80 86,80 80,94" fill="#C8A060"/>
+    </svg>
+  </div>
+  <div class="sub-form" id="sub-form">
+    <p class="sub-lbl">Получай волшебные письма<br>от <em style="color:var(--gold2);font-style:normal">Совы Мирелии</em></p>
+    <input type="email" class="sub-inp" placeholder="твой@email.ru" id="sub-email">
+    <button class="sub-btn" onclick="handleSubscribe()">Получить письмо</button>
+    <div class="sub-success" id="sub-ok">✦ Сова уже несёт твоё первое письмо ✦</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <canvas id="const-canvas"></canvas>
+  <div class="ft-logo">МИРЕЛИЯ</div>
+  <div class="ft-tag">Мир, где исполняются мечты</div>
+  <nav class="ft-nav">
+    <a href="#s3">Каталог</a>
+    <a href="#s5">Коллекции</a>
+    <a href="#">О бренде</a>
+    <a href="#">Доставка</a>
+    <a href="#s7">Подписка</a>
+  </nav>
+  <div class="ft-copy">© 2025 МИРЕЛИЯ. Все права защищены.</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── Cursor ── */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+document.addEventListener('mousemove',e=>{
+  gsap.to(cur,{x:e.clientX,y:e.clientY,duration:.08,ease:'none'});
+  gsap.to(ring,{x:e.clientX,y:e.clientY,duration:.22,ease:'power2.out'});
+});
+document.addEventListener('mousedown',()=>gsap.to(cur,{scale:.6,duration:.1}));
+document.addEventListener('mouseup',()=>gsap.to(cur,{scale:1,duration:.15}));
+
+/* ── Stars canvas (fixed background) ── */
+(function(){
+  const c=document.getElementById('stars'),ctx=c.getContext('2d');
+  let s=[];
+  const resize=()=>{c.width=innerWidth;c.height=innerHeight};
+  const make=()=>{s=[];for(let i=0;i<200;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5+.2,a:Math.random(),da:(Math.random()-.5)*.005})};
+  const draw=()=>{
+    ctx.clearRect(0,0,c.width,c.height);
+    s.forEach(p=>{
+      p.a=Math.max(.04,Math.min(1,p.a+p.da));
+      if(p.a<=.04||p.a>=1)p.da*=-1;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,250,240,${p.a})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  };
+  window.addEventListener('resize',()=>{resize();make()});
+  resize();make();draw();
+})();
+
+/* ── Magic canvas: бабочки + золотые искры ── */
+(function(){
+  const c=document.getElementById('magic-canvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const resize=()=>{c.width=c.parentElement.offsetWidth;c.height=c.parentElement.offsetHeight};
+
+  // Рисуем одну бабочку
+  function butterfly(x,y,r,phase,alpha){
+    const flap=Math.abs(Math.sin(phase))*0.85+0.15;
+    ctx.save();ctx.translate(x,y);ctx.globalAlpha=alpha;
+    // Ореол
+    const g=ctx.createRadialGradient(0,0,0,0,0,r*5);
+    g.addColorStop(0,`rgba(255,215,80,${alpha*.65})`);
+    g.addColorStop(0.5,`rgba(255,170,40,${alpha*.25})`);
+    g.addColorStop(1,'rgba(255,140,20,0)');
+    ctx.beginPath();ctx.arc(0,0,r*5,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+    // Верхние крылья
+    ctx.beginPath();ctx.ellipse(-r*1.1,-r*.25*flap,r*1.4,r*flap,.3,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,205,70,${alpha*.88})`;ctx.fill();
+    ctx.beginPath();ctx.ellipse(r*1.1,-r*.25*flap,r*1.4,r*flap,-.3,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,205,70,${alpha*.88})`;ctx.fill();
+    // Нижние крылья
+    ctx.beginPath();ctx.ellipse(-r*.75,r*.35*flap,r*.85,r*.6*flap,.2,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,175,45,${alpha*.7})`;ctx.fill();
+    ctx.beginPath();ctx.ellipse(r*.75,r*.35*flap,r*.85,r*.6*flap,-.2,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,175,45,${alpha*.7})`;ctx.fill();
+    // Тело
+    ctx.beginPath();ctx.arc(0,0,r*.28,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,245,170,${alpha})`;ctx.fill();
+    ctx.restore();
+  }
+
+  // Рисуем искру (4-лучевая звёздочка) с цветом
+  function sparkle(x,y,r,alpha,col){
+    ctx.save();ctx.translate(x,y);ctx.globalAlpha=alpha;
+    const g=ctx.createRadialGradient(0,0,0,0,0,r*4);
+    g.addColorStop(0,`rgba(${col},${alpha})`);
+    g.addColorStop(0.5,`rgba(${col},${alpha*.4})`);
+    g.addColorStop(1,`rgba(${col},0)`);
+    ctx.beginPath();ctx.arc(0,0,r*4,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(0,-r*1.8);ctx.lineTo(r*.25,-r*.25);
+    ctx.lineTo(r*1.8,0);ctx.lineTo(r*.25,r*.25);
+    ctx.lineTo(0,r*1.8);ctx.lineTo(-r*.25,r*.25);
+    ctx.lineTo(-r*1.8,0);ctx.lineTo(-r*.25,-r*.25);ctx.closePath();
+    ctx.fillStyle=`rgba(${col},${alpha})`;ctx.fill();
+    ctx.restore();
+  }
+
+  let butterflies=[],sparks=[],t=0;
+
+  const make=()=>{
+    butterflies=[];sparks=[];
+    // Крупные бабочки (~20)
+    for(let i=0;i<22;i++){
+      butterflies.push({
+        x:Math.random()*c.width,y:Math.random()*c.height,
+        r:Math.random()*5+3,
+        vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.28,
+        a:Math.random()*.65+.25,da:(Math.random()-.5)*.012,
+        phase:Math.random()*Math.PI*2,flapSpeed:Math.random()*.06+.04,
+        wx:Math.random()*Math.PI*2,wy:Math.random()*Math.PI*2
+      });
+    }
+    // Мелкие искры (~90) — лесная палитра: золото, зелень, лунный свет
+    const sparkCols=['255,245,165','195,255,195','210,255,230','255,225,120','240,255,200'];
+    for(let i=0;i<90;i++){
+      sparks.push({
+        x:Math.random()*c.width,y:Math.random()*c.height,
+        r:Math.random()*1.4+.4,
+        vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.18,
+        a:Math.random()*.8+.15,da:(Math.random()-.5)*.018,
+        phase:Math.random()*Math.PI*2,
+        col:sparkCols[Math.floor(Math.random()*sparkCols.length)]
+      });
+    }
+  };
+
+  const draw=()=>{
+    ctx.clearRect(0,0,c.width,c.height);
+    t+=.013;
+    // Бабочки
+    butterflies.forEach(b=>{
+      b.phase+=b.flapSpeed;
+      b.x+=b.vx+Math.cos(t*.5+b.wx)*.4;
+      b.y+=b.vy+Math.sin(t*.4+b.wy)*.3;
+      if(b.x<-20)b.x=c.width+20;if(b.x>c.width+20)b.x=-20;
+      if(b.y<-20)b.y=c.height+20;if(b.y>c.height+20)b.y=-20;
+      b.a=Math.max(.12,Math.min(.9,b.a+b.da));
+      if(b.a<=.12||b.a>=.9)b.da*=-1;
+      butterfly(b.x,b.y,b.r,b.phase,b.a);
+    });
+    // Искры
+    sparks.forEach(s=>{
+      s.x+=s.vx+Math.cos(t*.8+s.phase)*.25;
+      s.y+=s.vy+Math.sin(t*.6+s.phase)*.2;
+      if(s.x<-10)s.x=c.width+10;if(s.x>c.width+10)s.x=-10;
+      if(s.y<-10)s.y=c.height+10;if(s.y>c.height+10)s.y=-10;
+      s.a=Math.max(.08,Math.min(.95,s.a+s.da));
+      if(s.a<=.08||s.a>=.95)s.da*=-1;
+      sparkle(s.x,s.y,s.r,s.a,s.col);
+    });
+    requestAnimationFrame(draw);
+  };
+
+  window.addEventListener('resize',()=>{resize();make()});
+  resize();make();draw();
+})();
+
+/* ── Hero entrance ── */
+gsap.set('.hero-cta',{opacity:0,y:20});
+gsap.set('#hero-emblem',{opacity:0,scale:.82});
+gsap.set('#hero-logo-text',{opacity:0,y:20});
+gsap.timeline({delay:.3})
+  .to('#hero-emblem',{opacity:1,scale:1,duration:1.6,ease:'power2.out'})
+  .to('#hero-logo-text',{opacity:1,y:0,duration:1.1,ease:'power2.out'},'-=.7')
+  .to('.hero-cta',{opacity:1,y:0,duration:.8},'-=.3');
+
+/* ── Hero scroll: logo fades → circle opens → characters revealed ── */
+/* ── Hero scroll: зум леса → плавный переход в зверьков → видео ── */
+let videoStarted = false;
+let magicStarted = false;
+
+function startMagic(){
+  if(magicStarted) return;
+  magicStarted = true;
+  gsap.to('#magic-canvas',{opacity:1,duration:3,ease:'power2.inOut'});
+}
+
+function startForestVideo(){
+  if(videoStarted) return;
+  videoStarted = true;
+  const vid = document.getElementById('forest-video');
+  vid.playbackRate = 0.6;
+  vid.currentTime  = 0;
+  vid.play().catch(()=>{});
+  gsap.to('#s1-video-wrap',{opacity:1,duration:2,ease:'power2.inOut'});
+  vid.addEventListener('timeupdate',()=>{ if(vid.currentTime>=4) vid.pause(); });
+}
+
+const heroTl = gsap.timeline({
+  scrollTrigger:{
+    trigger:'#s1',
+    start:'top top',
+    end:'bottom bottom',
+    scrub:3,
+    pin:'#s1-sticky',
+    onUpdate: self => {
+      // магия появляется вместе с текстом "Добро пожаловать" (~55%)
+      if(self.progress > 0.55) startMagic();
+      // видео запускается после (~65% = позиция 5.5 из 8.5)
+      if(self.progress > 0.65) startForestVideo();
+    }
+  }
+});
+
+heroTl
+  // 0 → 5.5  Зум прямо к стволу дерева
+  .to('#s1-bg',{scale:6.5,ease:'power1.in',duration:5.5},0)
+
+  // 0 → 1.4  Лого лёгкий плыв вверх
+  .to('#hero-emblem',{y:-30,scale:1.05,ease:'none',duration:1.4},0)
+
+  // 0.9 → 2.4  Контент растворяется
+  .to('#hero-content',{opacity:0,y:-60,ease:'power2.in',duration:1.5},0.9)
+  .to('#scroll-hint',{opacity:0,duration:.7},0.7)
+
+  // 2.0 → 5.5  Плавный кросс-фейд в 15.jpeg
+  .to('#s1-over15',{opacity:1,ease:'power1.inOut',duration:3.5},2.0)
+  .to('#s1-over15 img',{scale:1,ease:'power1.out',duration:3.5},2.0)
+
+  // 4.5 → 5.5  Подпись «Добро пожаловать в Мирелию»
+  .to('#s1-over15-overlay',{opacity:1,ease:'power2.out',duration:1},4.5)
+
+  // 5.5 → 8.5  Пауза — видео играет (пустой твин)
+  .to({},{duration:3},5.5);
+
+/* ── Tree silhouettes (scene 2) ── */
+(function(){
+  const td=document.getElementById('trees');
+  [{l:'-2%',w:120,h:200},{l:'5%',w:80,h:150},{l:'12%',w:100,h:180},
+   {l:'22%',w:70,h:130},{l:'30%',w:90,h:160},{l:'40%',w:110,h:190},
+   {l:'52%',w:85,h:155},{l:'60%',w:115,h:195},{l:'70%',w:75,h:140},
+   {l:'78%',w:95,h:170},{l:'86%',w:105,h:185},{l:'94%',w:80,h:145}
+  ].forEach(t=>{
+    const el=document.createElement('div');
+    el.style.cssText=`position:absolute;bottom:0;left:${t.l};width:${t.w}px;height:${t.h}px;background:#030810;clip-path:polygon(50% 0%,88% 100%,12% 100%);opacity:.9`;
+    td.appendChild(el);
+  });
+})();
+
+/* ── Scene 2 удалена ── */
+
+/* ── Forest fireflies ── */
+(function(){
+  const c=document.getElementById('ff-canvas');if(!c)return;
+  const ctx=c.getContext('2d');
+  let ffs=[];
+  const resize=()=>{c.width=c.parentElement.offsetWidth;c.height=c.parentElement.offsetHeight};
+  const make=()=>{ffs=[];for(let i=0;i<40;i++)ffs.push({x:Math.random()*c.width,y:Math.random()*c.height*.7+c.height*.3,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.3,a:Math.random(),da:(Math.random()-.5)*.02,r:Math.random()*2+1,phase:Math.random()*Math.PI*2})};
+  let t=0;
+  const draw=()=>{
+    ctx.clearRect(0,0,c.width,c.height);t+=.012;
+    ffs.forEach(f=>{
+      f.x+=f.vx+Math.cos(t*.7+f.phase)*.3;f.y+=f.vy+Math.sin(t*.5+f.phase)*.2;
+      if(f.x<0)f.x=c.width;if(f.x>c.width)f.x=0;
+      if(f.y<c.height*.2)f.y=c.height*.95;if(f.y>c.height)f.y=c.height*.25;
+      f.a=Math.max(.05,Math.min(.9,f.a+f.da));if(f.a<=.05||f.a>=.9)f.da*=-1;
+      ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(200,230,120,${f.a})`;
+      ctx.shadowBlur=10;ctx.shadowColor='rgba(180,220,80,.6)';ctx.fill();ctx.shadowBlur=0;
+    });
+    requestAnimationFrame(draw);
+  };
+  window.addEventListener('resize',()=>{resize();make()});
+  resize();make();draw();
+})();
+
+/* ── Scene 3 catalog ── */
+gsap.to('#s3t',{opacity:1,y:0,scrollTrigger:{trigger:'#s3',start:'top 80%',toggleActions:'play none none reverse'}});
+gsap.to('#s3s',{opacity:1,scrollTrigger:{trigger:'#s3',start:'top 75%',toggleActions:'play none none reverse'}});
+document.querySelectorAll('.ccard').forEach((c,i)=>{
+  gsap.to(c,{opacity:1,y:0,scale:1,duration:.7,delay:i*.07,scrollTrigger:{trigger:'#s3',start:'25% 80%',toggleActions:'play none none reverse'}});
+});
+document.getElementById('s3').addEventListener('mousemove',e=>{
+  const cx=window.innerWidth/2,cy=window.innerHeight/2;
+  const dx=(e.clientX-cx)/cx,dy=(e.clientY-cy)/cy;
+  document.querySelectorAll('.ccard').forEach((c,i)=>{
+    const d=(i%3+1)*10;
+    gsap.to(c,{x:dx*d,y:dy*d,duration:.6,ease:'power1.out',overwrite:'auto'});
+  });
+});
+document.getElementById('s3').addEventListener('mouseleave',()=>{
+  document.querySelectorAll('.ccard').forEach(c=>gsap.to(c,{x:0,y:0,duration:.6}));
+});
+
+
+/* ── Scene 6 reviews (firefly click) ── */
+gsap.to('#s6t',{opacity:1,y:0,scrollTrigger:{trigger:'#s6',start:'top 75%',toggleActions:'play none none reverse'}});
+const reviewData=[{x:.25,y:.45},{x:.6,y:.35},{x:.15,y:.65},{x:.7,y:.6},{x:.45,y:.7}];
+(function(){
+  const c=document.getElementById('fly-canvas');if(!c)return;
+  const ctx=c.getContext('2d');
+  let flies=[];
+  const resize=()=>{c.width=c.parentElement.offsetWidth;c.height=c.parentElement.offsetHeight};
+  const make=()=>{
+    flies=[];
+    reviewData.forEach((p,i)=>{
+      flies.push({x:p.x*c.width,y:p.y*c.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.25,a:.7,da:.015,r:4,review:i,interactive:true,phase:Math.random()*Math.PI*2});
+    });
+    for(let i=0;i<35;i++)flies.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.28,a:Math.random()*.5,da:(Math.random()-.5)*.018,r:Math.random()*2+.8,interactive:false,phase:Math.random()*Math.PI*2});
+  };
+  c.addEventListener('click',e=>{
+    const rect=c.getBoundingClientRect();
+    const cx=e.clientX-rect.left,cy=e.clientY-rect.top;
+    flies.forEach(f=>{
+      if(!f.interactive)return;
+      if(Math.hypot(f.x-cx,f.y-cy)<30){
+        showReview(f.review,e.clientX,e.clientY);
+        gsap.to(f,{a:1,r:8,duration:.3,yoyo:true,repeat:3});
+      }
+    });
+  });
+  let t=0;
+  const draw=()=>{
+    ctx.clearRect(0,0,c.width,c.height);t+=.014;
+    flies.forEach(f=>{
+      f.x+=f.vx+Math.cos(t*.6+f.phase)*.35;f.y+=f.vy+Math.sin(t*.4+f.phase)*.25;
+      if(f.x<0)f.x=c.width;if(f.x>c.width)f.x=0;
+      if(f.y<0)f.y=c.height;if(f.y>c.height)f.y=0;
+      const cap=f.interactive?.9:.55;
+      f.a=Math.max(.06,Math.min(cap,f.a+f.da));if(f.a<=.06||f.a>=cap)f.da*=-1;
+      const grad=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,f.r*4);
+      grad.addColorStop(0,`rgba(200,230,100,${f.a})`);grad.addColorStop(1,'transparent');
+      ctx.beginPath();ctx.arc(f.x,f.y,f.r*4,0,Math.PI*2);ctx.fillStyle=grad;ctx.fill();
+      ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(230,255,150,${Math.min(1,f.a*1.4)})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  };
+  ScrollTrigger.create({
+    trigger:'#s6',start:'top 70%',end:'bottom 30%',
+    onEnter:()=>c.classList.add('active'),onLeave:()=>c.classList.remove('active'),
+    onEnterBack:()=>c.classList.add('active'),onLeaveBack:()=>c.classList.remove('active')
+  });
+  window.addEventListener('resize',()=>{resize();make()});
+  resize();make();draw();
+})();
+
+function showReview(idx,px,py){
+  const card=document.getElementById('r'+idx);
+  const sec=document.getElementById('s6').getBoundingClientRect();
+  let cx=px-sec.left-125,cy=py-sec.top-80;
+  cx=Math.max(10,Math.min(sec.width-260,cx));
+  cy=Math.max(10,Math.min(sec.height-160,cy));
+  card.style.left=cx+'px';card.style.top=cy+'px';
+  card.classList.add('on');
+}
+function closeReview(idx){document.getElementById('r'+idx).classList.remove('on')}
+
+/* ── Scene 7 subscribe ── */
+gsap.to('#owl-wrap',{opacity:1,y:0,duration:1,scrollTrigger:{trigger:'#s7',start:'20% 75%',toggleActions:'play none none reverse'}});
+gsap.to('#sub-form',{opacity:1,y:0,duration:.9,scrollTrigger:{trigger:'#s7',start:'30% 75%',toggleActions:'play none none reverse'}});
+function handleSubscribe(){
+  const e=document.getElementById('sub-email').value;
+  if(!e||!e.includes('@'))return;
+  gsap.to('#owl-wrap',{y:-20,duration:.3,yoyo:true,repeat:3,ease:'power1.inOut'});
+  setTimeout(()=>{document.getElementById('sub-ok').style.opacity='1';},800);
+}
+
+/* ── Footer constellation ── */
+(function(){
+  const c=document.getElementById('const-canvas');if(!c)return;
+  const ctx=c.getContext('2d');
+  const resize=()=>{c.width=c.parentElement.offsetWidth;c.height=c.parentElement.offsetHeight};
+  let pts=[];
+  const make=()=>{pts=[];for(let i=0;i<50;i++)pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.2+.3,a:Math.random()*.6+.1,da:(Math.random()-.5)*.008})};
+  const draw=()=>{
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(p=>{
+      p.a=Math.max(.05,Math.min(.75,p.a+p.da));if(p.a<=.05||p.a>=.75)p.da*=-1;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(240,230,200,${p.a})`;ctx.fill();
+    });
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+      if(d<90){
+        ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(201,168,76,${(1-d/90)*.06})`;ctx.stroke();
+      }
+    }
+    requestAnimationFrame(draw);
+  };
+  window.addEventListener('resize',()=>{resize();make()});
+  resize();make();draw();
+})();
+
+
+/* ── Section CHARS — знакомство с персонажами ── */
+(function(){
+  gsap.set('.char-slide',{opacity:0});
+  gsap.set('.char-slide .char-name-big',{y:38,opacity:0});
+  gsap.set('.char-slide .char-story',{y:22,opacity:0});
+  gsap.set('.char-slide .char-badge',{opacity:0});
+  gsap.set('.char-slide .char-num',{opacity:0});
+
+  const tl=gsap.timeline({
+    scrollTrigger:{trigger:'#s-chars',start:'top top',end:'bottom bottom',scrub:2,pin:'#s-chars-sticky'}
+  });
+
+  tl.to('#s-chars-intro',{opacity:0,duration:.45},0);
+
+  const N=5;
+  for(let i=0;i<N;i++){
+    const s=i*1.05+.3;
+    const q='#ch'+i;
+    tl.to(q,{opacity:1,duration:.3},s);
+    tl.to(q+' .char-num',{opacity:1,duration:.2},s+.08);
+    tl.to(q+' .char-name-big',{y:0,opacity:1,ease:'power3.out',duration:.32},s+.1);
+    tl.to(q+' .char-story',{y:0,opacity:1,ease:'power2.out',duration:.28},s+.22);
+    tl.to(q+' .char-badge',{opacity:1,duration:.2},s+.38);
+    tl.to(q+' .char-photo img',{scale:1.02,ease:'none',duration:.85},s);
+    if(i<N-1){tl.to(q,{opacity:0,duration:.25},s+.8);}
+  }
+})();
+
+/* ── Smooth anchor scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
