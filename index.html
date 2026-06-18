@@ -160,7 +160,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 50px;display:fl
 .sec-sub{font-size:clamp(13px,1.3vw,17px);color:rgba(240,237,232,.75);letter-spacing:.2em;text-align:center;margin:10px 0 70px;opacity:0;position:relative;z-index:2;text-shadow:0 1px 12px rgba(0,0,0,.6)}
 .crystals{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:860px;width:100%;position:relative;z-index:2}
 @media(max-width:640px){.crystals{grid-template-columns:repeat(2,1fr)}}
-.ccard{position:relative;aspect-ratio:.85;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:22px 16px;cursor:none;opacity:0;transform:translateY(44px) scale(.93);transition:transform .4s ease,box-shadow .4s,border-color .3s;border:1px solid rgba(255,255,255,.22);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.07);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ccard{position:relative;aspect-ratio:.85;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:22px 16px;cursor:none;opacity:0;transform:translateY(44px) scale(.93);transition:transform .4s ease,box-shadow .4s,border-color .3s;border:1px solid rgba(255,255,255,.22);border-radius:16px;overflow:hidden;background:rgba(8,5,28,.32);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .ccard:hover{transform:translateY(-8px) scale(1.04) !important;box-shadow:0 20px 50px rgba(0,0,0,.25),0 0 36px rgba(201,168,76,.18);border-color:rgba(201,168,76,.5)}
 .ccard:hover .cglow{opacity:.55}
 .ccard:hover .ci{transform:translateX(-50%) scale(1.1);filter:drop-shadow(0 10px 30px rgba(0,0,0,.4)) brightness(1.06)}
@@ -299,19 +299,49 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 50px;display:fl
 .rcard .rclose:hover{color:var(--gold)}
 
 /* ════════════════════════
-   SCENE 7 — SUBSCRIBE
+   HAMBURGER + MOBILE NAV
 ════════════════════════ */
-#s7{position:relative;z-index:1;min-height:80vh;background:linear-gradient(180deg,#040A14 0%,#080F22 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 5%;overflow:hidden}
-.owl-wrap{opacity:0;transform:translateY(-50px);margin-bottom:36px}
-.sub-form{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;max-width:420px;opacity:0;transform:translateY(24px)}
-.sub-lbl{font-size:clamp(18px,2.5vw,28px);font-weight:300;font-style:italic;color:var(--white);text-align:center;line-height:1.5;margin-bottom:6px}
-.sub-inp{width:100%;padding:14px 24px;background:rgba(240,237,232,.04);border:1px solid rgba(201,168,76,.28);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:16px;outline:none;text-align:center;transition:border-color .3s,background .3s}
-.sub-inp:focus{border-color:var(--gold);background:rgba(201,168,76,.05)}
-.sub-inp::placeholder{color:rgba(240,237,232,.28)}
-.sub-btn{padding:14px 48px;border:1px solid var(--gold);background:transparent;color:var(--gold2);font-family:'Cinzel',serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;cursor:none;transition:background .3s;position:relative;overflow:hidden}
-.sub-btn:hover{background:rgba(201,168,76,.1)}
-.sub-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.15),transparent);animation:shim 3s 1s infinite}
-.sub-success{opacity:0;transition:opacity .5s;font-style:italic;font-size:16px;color:var(--gold2);text-align:center;margin-top:10px}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:201}
+.nav-burger span{display:block;width:22px;height:1px;background:var(--gold2);transition:transform .3s,opacity .3s}
+.nav-burger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+#nav-mobile{display:none;position:fixed;inset:0;z-index:198;background:rgba(4,8,20,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:36px}
+#nav-mobile.open{display:flex}
+.nav-mobile-close{position:absolute;top:24px;right:28px;background:none;border:none;color:rgba(240,237,232,.35);font-size:20px;cursor:pointer;transition:color .2s}
+.nav-mobile-close:hover{color:var(--gold2)}
+#nav-mobile a{color:rgba(240,237,232,.65);text-decoration:none;font-family:'Cinzel',serif;font-size:15px;letter-spacing:.22em;text-transform:uppercase;transition:color .3s}
+#nav-mobile a:hover{color:var(--gold2)}
+
+/* ════════════════════════
+   RESPONSIVE — MOBILE
+════════════════════════ */
+@media(max-width:768px){
+  body{cursor:auto}
+  #cur,#cur-ring{display:none}
+  nav{padding:14px 20px}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  #s1-bg{background:url('osnova-mobile.webp') center 20%/cover no-repeat;transform-origin:50% 20%}
+  #s1{height:850vh}
+  #hero-emblem{width:min(190px,55vw)}
+  #hero-logo-text{width:min(280px,78vw);margin-bottom:28px}
+  .hero-cta{padding:12px 32px;font-size:11px}
+  #s3{padding:50px 4% 70px}
+  .sec-sub{letter-spacing:.1em;margin:8px 0 44px}
+  .crystals{grid-template-columns:repeat(2,1fr)!important;gap:12px;max-width:100%}
+  .cname{font-size:10px;letter-spacing:.08em}
+  .ccnt{font-size:9px}
+  .catalog-btn{padding:12px 36px;font-size:11px;margin-top:36px}
+  #s-chars{height:480vh}
+  .char-name-big{font-size:clamp(24px,7vw,48px)}
+  .char-story{font-size:clamp(13px,3.5vw,16px);max-width:100%}
+  #s6{padding:50px 4%}
+  .rcard{width:185px;padding:12px 14px;font-size:13px}
+  footer{padding:40px 20px}
+  .ft-nav{gap:18px}
+  .ft-logo{font-size:clamp(22px,8vw,40px)}
+}
 
 /* ════════════════════════
    FOOTER
@@ -339,10 +369,17 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
   <div class="nav-logo">МИРЕЛИЯ</div>
   <div class="nav-links">
     <a href="#s3">Каталог</a>
-    <a href="#s5">Коллекции</a>
-    <a href="#s7">Подписка</a>
+    <a href="#s-chars">Персонажи</a>
+    <a href="#s6">Отзывы</a>
   </div>
+  <button class="nav-burger" id="nav-burger" aria-label="Меню"><span></span><span></span><span></span></button>
 </nav>
+<div id="nav-mobile">
+  <button class="nav-mobile-close" id="nav-close">✕</button>
+  <a href="#s3" class="nav-mob-link">Каталог</a>
+  <a href="#s-chars" class="nav-mob-link">Персонажи</a>
+  <a href="#s6" class="nav-mob-link">Отзывы</a>
+</div>
 
 <!-- ════════════════════════════════════════
      SCENE 1 — HERO (750vh pinned)
@@ -627,41 +664,7 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
   <div class="rcard" id="r4"><div class="rstars">★★★★★</div><p class="rtxt">«Я взрослый и тоже хочу этот проектор. Мир Тигрёнка — лучшее что я видела.»</p><div class="rauth">— Ольга В.</div><button class="rclose" onclick="closeReview(4)">✕</button></div>
 </section>
 
-<!-- ════════════════════════════════════════
-     SCENE 7 — ПОДПИСКА + СОВА
-════════════════════════════════════════ -->
-<section id="s7">
-  <div class="owl-wrap" id="owl-wrap">
-    <svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="owlGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <radialGradient id="galaxyL" cx="40%" cy="40%" r="70%"><stop offset="0%" stop-color="#60B0F0"/><stop offset="50%" stop-color="#7040C0"/><stop offset="100%" stop-color="#1A0060"/></radialGradient>
-        <radialGradient id="galaxyR" cx="60%" cy="40%" r="70%"><stop offset="0%" stop-color="#80C0FF"/><stop offset="50%" stop-color="#4060C0"/><stop offset="100%" stop-color="#100050"/></radialGradient>
-      </defs>
-      <ellipse cx="24" cy="130" rx="26" ry="46" fill="#E0D8C8" transform="rotate(-12 24 130)" filter="url(#owlGlow)"/>
-      <ellipse cx="136" cy="130" rx="26" ry="46" fill="#E0D8C8" transform="rotate(12 136 130)" filter="url(#owlGlow)"/>
-      <ellipse cx="80" cy="130" rx="48" ry="55" fill="#EDE6D6" filter="url(#owlGlow)"/>
-      <circle cx="80" cy="68" r="48" fill="#EDE6D6" filter="url(#owlGlow)"/>
-      <polygon points="54,28 46,8 62,26" fill="#D8D0C0"/><polygon points="54,28 50,12 60,26" fill="#C0B8A8"/>
-      <polygon points="106,28 114,8 98,26" fill="#D8D0C0"/><polygon points="106,28 110,12 100,26" fill="#C0B8A8"/>
-      <circle cx="62" cy="66" r="17" fill="#1A0840" stroke="rgba(200,180,240,0.3)" stroke-width="1"/>
-      <circle cx="62" cy="66" r="13" fill="url(#galaxyL)"/>
-      <circle cx="62" cy="66" r="8" fill="rgba(20,0,60,0.5)"/>
-      <circle cx="66" cy="62" r="3.5" fill="white" opacity=".75"/>
-      <circle cx="98" cy="66" r="17" fill="#1A0840" stroke="rgba(200,180,240,0.3)" stroke-width="1"/>
-      <circle cx="98" cy="66" r="13" fill="url(#galaxyR)"/>
-      <circle cx="98" cy="66" r="8" fill="rgba(20,0,60,0.5)"/>
-      <circle cx="102" cy="62" r="3.5" fill="white" opacity=".75"/>
-      <polygon points="74,80 86,80 80,94" fill="#C8A060"/>
-    </svg>
-  </div>
-  <div class="sub-form" id="sub-form">
-    <p class="sub-lbl">Получай волшебные письма<br>от <em style="color:var(--gold2);font-style:normal">Совы Мирелии</em></p>
-    <input type="email" class="sub-inp" placeholder="твой@email.ru" id="sub-email">
-    <button class="sub-btn" onclick="handleSubscribe()">Получить письмо</button>
-    <div class="sub-success" id="sub-ok">✦ Сова уже несёт твоё первое письмо ✦</div>
-  </div>
-</section>
+<!-- s7 удалён -->
 
 <!-- FOOTER -->
 <footer>
@@ -670,10 +673,10 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
   <div class="ft-tag">Мир, где исполняются мечты</div>
   <nav class="ft-nav">
     <a href="#s3">Каталог</a>
-    <a href="#s5">Коллекции</a>
+    <a href="#s-chars">Персонажи</a>
+    <a href="#s6">Отзывы</a>
     <a href="#">О бренде</a>
     <a href="#">Доставка</a>
-    <a href="#s7">Подписка</a>
   </nav>
   <div class="ft-copy">© 2025 МИРЕЛИЯ. Все права защищены.</div>
 </footer>
@@ -1013,15 +1016,18 @@ function showReview(idx,px,py){
 }
 function closeReview(idx){document.getElementById('r'+idx).classList.remove('on')}
 
-/* ── Scene 7 subscribe ── */
-gsap.to('#owl-wrap',{opacity:1,y:0,duration:1,scrollTrigger:{trigger:'#s7',start:'20% 75%',toggleActions:'play none none reverse'}});
-gsap.to('#sub-form',{opacity:1,y:0,duration:.9,scrollTrigger:{trigger:'#s7',start:'30% 75%',toggleActions:'play none none reverse'}});
-function handleSubscribe(){
-  const e=document.getElementById('sub-email').value;
-  if(!e||!e.includes('@'))return;
-  gsap.to('#owl-wrap',{y:-20,duration:.3,yoyo:true,repeat:3,ease:'power1.inOut'});
-  setTimeout(()=>{document.getElementById('sub-ok').style.opacity='1';},800);
-}
+/* ── Hamburger menu ── */
+(function(){
+  const burger=document.getElementById('nav-burger');
+  const menu=document.getElementById('nav-mobile');
+  const close=document.getElementById('nav-close');
+  if(!burger||!menu)return;
+  const open=()=>{menu.classList.add('open');burger.classList.add('open');document.body.style.overflow='hidden'};
+  const shut=()=>{menu.classList.remove('open');burger.classList.remove('open');document.body.style.overflow=''};
+  burger.addEventListener('click',open);
+  close.addEventListener('click',shut);
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',shut));
+})();
 
 /* ── Footer constellation ── */
 (function(){
