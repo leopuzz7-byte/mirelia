@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Каталог — МИРЕЛИЯ</title>
+<title data-i18n="site_title_catalog">Каталог — МИРЕЛИЯ</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 <style>
 /* ━━━━━━━━━━━━━━━━━━ RESET & VARS ━━━━━━━━━━━━━━━━━━ */
@@ -24,6 +24,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 48px;display:fl
 .nav-links{display:flex;gap:30px}
 .nav-links a{color:rgba(240,237,232,.45);font-size:11px;letter-spacing:.16em;text-transform:uppercase;transition:color .3s}
 .nav-links a:hover,.nav-links a.active{color:var(--gold2)}
+
+/* ── LANGUAGE SWITCH ── */
+.lang-switch{display:flex;align-items:center;gap:2px;border:1px solid rgba(201,168,76,.28);border-radius:20px;padding:3px;background:rgba(8,5,28,.35);backdrop-filter:blur(6px)}
+.lang-btn{background:none;border:none;color:rgba(240,237,232,.5);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;padding:5px 12px;border-radius:16px;cursor:pointer;transition:background .3s,color .3s}
+.lang-btn:hover{color:var(--gold2)}
+.lang-btn.active{background:linear-gradient(135deg,rgba(201,168,76,.38),rgba(201,168,76,.18));color:var(--gold3)}
+.lang-switch-mobile{margin-top:6px}
+.lang-switch-mobile .lang-btn{font-size:12px;padding:8px 15px}
 .nav-actions{display:flex;align-items:center;gap:14px}
 .cart-btn{background:none;border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:7px 16px;color:var(--gold2);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;display:flex;align-items:center;gap:7px;transition:border-color .3s,background .3s}
 .cart-btn:hover{border-color:var(--gold);background:rgba(201,168,76,.06)}
@@ -331,6 +339,7 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(201,168,76,.08);pad
   nav{padding:14px 20px}
   .nav-links{display:none}
   .nav-burger{display:flex}
+  #lang-switch-desktop{display:none}
   .cat-hero-inner,.prod-section,.rev-section,.cta-section,.filter-bar{padding-left:20px;padding-right:20px}
   .filter-bar{top:56px;flex-wrap:wrap}
   .sort-sel{width:100%}
@@ -403,41 +412,51 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(201,168,76,.08);pad
 <nav>
   <a href="index.html" class="nav-logo">МИРЕЛИЯ</a>
   <div class="nav-links">
-    <a href="index.html">Главная</a>
-    <a href="catalog.html" class="active">Каталог</a>
-    <a href="#">О бренде</a>
-    <a href="#">Доставка</a>
+    <a href="index.html" data-i18n="nav_home">Главная</a>
+    <a href="catalog.html" class="active" data-i18n="nav_catalog">Каталог</a>
+    <a href="#" data-i18n="nav_about">О бренде</a>
+    <a href="#" data-i18n="nav_delivery">Доставка</a>
   </div>
   <div class="nav-actions">
+    <div class="lang-switch" id="lang-switch-desktop">
+      <button class="lang-btn" data-lang="ru">RU</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="es">ES</button>
+    </div>
     <button class="cart-btn" id="cart-open-btn">
-      ✦ Корзина <span class="cart-count" id="cart-count">0</span>
+      ✦ <span data-i18n="cart_label">Корзина</span> <span class="cart-count" id="cart-count">0</span>
     </button>
-    <button class="nav-burger" id="nav-burger"><span></span><span></span><span></span></button>
+    <button class="nav-burger" id="nav-burger" data-i18n-aria="nav_menu_aria"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <div id="nav-mobile">
   <button class="nav-mobile-close" id="nav-close">✕</button>
-  <a href="index.html">Главная</a>
-  <a href="catalog.html">Каталог</a>
-  <a href="#">О бренде</a>
-  <a href="#">Доставка</a>
+  <a href="index.html" data-i18n="nav_home">Главная</a>
+  <a href="catalog.html" data-i18n="nav_catalog">Каталог</a>
+  <a href="#" data-i18n="nav_about">О бренде</a>
+  <a href="#" data-i18n="nav_delivery">Доставка</a>
+  <div class="lang-switch lang-switch-mobile" id="lang-switch-mobile">
+    <button class="lang-btn" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="es">ES</button>
+  </div>
 </div>
 
 <!-- ═══ HERO ═══ -->
 <section class="cat-hero">
   <div class="cat-hero-inner">
     <div class="breadcrumb">
-      <a href="index.html">Главная</a><span>›</span><span>Каталог</span>
+      <a href="index.html" data-i18n="nav_home">Главная</a><span>›</span><span data-i18n="nav_catalog">Каталог</span>
     </div>
-    <h1 class="cat-hero-title">Волшебный каталог</h1>
-    <p class="cat-hero-sub">Предметы из мира Мирелии для маленьких волшебников</p>
+    <h1 class="cat-hero-title" data-i18n="magical_catalog_title">Волшебный каталог</h1>
+    <p class="cat-hero-sub" data-i18n="cat_hero_sub">Предметы из мира Мирелии для маленьких волшебников</p>
     <div class="cat-hero-stats">
-      <div class="hstat"><strong>47</strong><span>товаров</span></div>
+      <div class="hstat"><strong>47</strong><span data-i18n="label_products_count">товаров</span></div>
       <div class="hstat-div">✦</div>
-      <div class="hstat"><strong>★ 4.9</strong><span>средняя оценка</span></div>
+      <div class="hstat"><strong>★ 4.9</strong><span data-i18n="label_rating">средняя оценка</span></div>
       <div class="hstat-div">✦</div>
-      <div class="hstat"><strong>1–3 дня</strong><span>доставка</span></div>
+      <div class="hstat"><strong data-i18n="hero_stat_delivery_value">1–3 дня</strong><span data-i18n="nav_delivery">доставка</span></div>
     </div>
   </div>
 </section>
@@ -446,10 +465,10 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(201,168,76,.08);pad
 <div class="filter-bar" id="filter-bar">
   <div class="filter-cats" id="filter-cats"><!-- rendered by JS --></div>
   <select class="sort-sel" id="sort-sel">
-    <option value="pop">По популярности</option>
-    <option value="cheap">Сначала дешевле</option>
-    <option value="exp">Сначала дороже</option>
-    <option value="rate">По рейтингу</option>
+    <option value="pop" data-i18n="sort_pop">По популярности</option>
+    <option value="cheap" data-i18n="sort_cheap">Сначала дешевле</option>
+    <option value="exp" data-i18n="sort_exp">Сначала дороже</option>
+    <option value="rate" data-i18n="sort_rate">По рейтингу</option>
   </select>
 </div>
 
@@ -461,39 +480,39 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(201,168,76,.08);pad
 
 <!-- ═══ REVIEWS ═══ -->
 <section class="rev-section">
-  <div class="rev-head"><h2 class="rev-title">Голоса из Мирелии</h2><span class="rev-subtitle">Что говорят родители и дети</span></div>
+  <div class="rev-head"><h2 class="rev-title" data-i18n="voices_title">Голоса из Мирелии</h2><span class="rev-subtitle" data-i18n="rev_subtitle">Что говорят родители и дети</span></div>
   <div class="rev-summary">
     <div class="rev-score">4.9</div>
-    <div><div class="rev-score-stars">★★★★★</div><div class="rev-score-count">на основе 774 отзывов</div></div>
+    <div><div class="rev-score-stars">★★★★★</div><div class="rev-score-count" data-i18n="rev_score_count">на основе 774 отзывов</div></div>
   </div>
   <div class="rev-grid">
-    <div class="rcard"><div class="rcard-stars">★★★★★</div><p class="rcard-text">«Дочь не хочет выходить из комнаты. Говорит, там живут настоящие феникс и дракон. Проектор работает уже полгода — ни единой проблемы.»</p><div class="rcard-author"><div class="rcard-avatar">А</div><div><div class="rcard-name">Анна М., Москва</div><div class="rcard-product">Волшебный проектор</div></div></div></div>
-    <div class="rcard"><div class="rcard-stars">★★★★★</div><p class="rcard-text">«Подарила на день рождения — именинник сказал, что это лучший подарок в жизни. Качество выше ожидаемого, упаковка как из сказки.»</p><div class="rcard-author"><div class="rcard-avatar">С</div><div><div class="rcard-name">Светлана Р., Санкт-Петербург</div><div class="rcard-product">Волшебный сундук</div></div></div></div>
-    <div class="rcard"><div class="rcard-stars">★★★★★</div><p class="rcard-text">«Сын засыпает за 10 минут вместо часа. Полотенца такие мягкие, что он сам тянется после ванной. Это настоящая магия.»</p><div class="rcard-author"><div class="rcard-avatar">Д</div><div><div class="rcard-name">Дмитрий П., Казань</div><div class="rcard-product">Набор полотенец + Ночник</div></div></div></div>
+    <div class="rcard"><div class="rcard-stars">★★★★★</div><p class="rcard-text" data-i18n="rcard0_text">«Дочь не хочет выходить из комнаты. Говорит, там живут настоящие феникс и дракон. Проектор работает уже полгода — ни единой проблемы.»</p><div class="rcard-author"><div class="rcard-avatar">А</div><div><div class="rcard-name" data-i18n="rcard0_name">Анна М., Москва</div><div class="rcard-product" data-i18n="rcard0_product">Волшебный проектор</div></div></div></div>
+    <div class="rcard"><div class="rcard-stars">★★★★★</div><p class="rcard-text" data-i18n="rcard1_text">«Подарила на день рождения — именинник сказал, что это лучший подарок в жизни. Качество выше ожидаемого, упаковка как из сказки.»</p><div class="rcard-author"><div class="rcard-avatar">С</div><div><div class="rcard-name" data-i18n="rcard1_name">Светлана Р., Санкт-Петербург</div><div class="rcard-product" data-i18n="rcard1_product">Волшебный сундук</div></div></div></div>
+    <div class="rcard"><div class="rcard-stars">★★★★★</div><p class="rcard-text" data-i18n="rcard2_text">«Сын засыпает за 10 минут вместо часа. Полотенца такие мягкие, что он сам тянется после ванной. Это настоящая магия.»</p><div class="rcard-author"><div class="rcard-avatar">Д</div><div><div class="rcard-name" data-i18n="rcard2_name">Дмитрий П., Казань</div><div class="rcard-product" data-i18n="rcard2_product">Набор полотенец + Ночник</div></div></div></div>
   </div>
 </section>
 
 <!-- ═══ CTA ═══ -->
 <section class="cta-section">
-  <img src="logo_emblem.png" alt="Мирелия" class="cta-emblem">
-  <h2 class="cta-title">Волшебство — в деталях</h2>
-  <p class="cta-sub">Каждый предмет создан с любовью к детским мечтам</p>
+  <img src="logo_emblem.png" alt="Мирелия" class="cta-emblem" data-i18n-alt="alt_emblem">
+  <h2 class="cta-title" data-i18n="cta_title">Волшебство — в деталях</h2>
+  <p class="cta-sub" data-i18n="cta_sub">Каждый предмет создан с любовью к детским мечтам</p>
   <div class="cta-perks">
-    <span class="cta-perk">Бесплатная доставка от 3 000 ₽</span>
-    <span class="cta-perk">Подарочная упаковка включена</span>
-    <span class="cta-perk">Возврат в течение 30 дней</span>
+    <span class="cta-perk" data-i18n="cta_perk1">Бесплатная доставка от 3 000 ₽</span>
+    <span class="cta-perk" data-i18n="cta_perk2">Подарочная упаковка включена</span>
+    <span class="cta-perk" data-i18n="cta_perk3">Возврат в течение 30 дней</span>
   </div>
-  <a href="index.html" class="cta-btn">Узнать о бренде</a>
+  <a href="index.html" class="cta-btn" data-i18n="cta_btn">Узнать о бренде</a>
 </section>
 
 <footer>
   <div class="ft-logo">МИРЕЛИЯ</div>
-  <div class="ft-tag">Мир, где исполняются мечты</div>
+  <div class="ft-tag" data-i18n="footer_tag">Мир, где исполняются мечты</div>
   <nav class="ft-nav">
-    <a href="index.html">Главная</a><a href="catalog.html">Каталог</a>
-    <a href="#">О бренде</a><a href="#">Доставка</a><a href="#">Контакты</a>
+    <a href="index.html" data-i18n="nav_home">Главная</a><a href="catalog.html" data-i18n="nav_catalog">Каталог</a>
+    <a href="#" data-i18n="nav_about">О бренде</a><a href="#" data-i18n="nav_delivery">Доставка</a><a href="#" data-i18n="nav_contacts">Контакты</a>
   </nav>
-  <div class="ft-copy">© 2025 МИРЕЛИЯ. Все права защищены.</div>
+  <div class="ft-copy" data-i18n="footer_copy">© 2025 МИРЕЛИЯ. Все права защищены.</div>
 </footer>
 
 <!-- ═══ PRODUCT MODAL ═══ -->
@@ -524,12 +543,12 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(201,168,76,.08);pad
           <span class="qty-val" id="qty-val">1</span>
           <button class="qty-btn" id="qty-plus">+</button>
         </div>
-        <button class="pmodal-add-btn" id="pmodal-add-btn">В корзину</button>
+        <button class="pmodal-add-btn" id="pmodal-add-btn" data-i18n="modal_add_to_cart">В корзину</button>
         <button class="pmodal-wish-btn" id="pmodal-wish-btn">♡</button>
       </div>
       <!-- related — внутри info-col, скроллится вместе с ней -->
       <div class="pmodal-related">
-        <div class="pmodal-rel-title">Вам также понравится</div>
+        <div class="pmodal-rel-title" data-i18n="related_title">Вам также понравится</div>
         <div class="pmodal-rel-grid" id="pmodal-related"></div>
       </div>
     </div>
@@ -542,7 +561,7 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(201,168,76,.08);pad
   <div class="cart-panel">
     <div class="cart-head">
       <div class="cart-head-left">
-        <span class="cart-head-title">Корзина</span>
+        <span class="cart-head-title" data-i18n="cart_label">Корзина</span>
         <span class="cart-head-count" id="cart-head-count"></span>
       </div>
       <button class="cart-head-close" id="cart-close-btn">✕</button>
@@ -550,12 +569,12 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(201,168,76,.08);pad
     <div class="cart-items" id="cart-items-list"></div>
     <div class="cart-footer">
       <div class="cart-subtotals">
-        <div class="cart-row"><span class="cart-row-lbl">Товары</span><span class="cart-row-val" id="cart-subtotal">0 ₽</span></div>
-        <div class="cart-row"><span class="cart-row-lbl">Доставка</span><span class="cart-row-val" id="cart-delivery">—</span></div>
+        <div class="cart-row"><span class="cart-row-lbl" data-i18n="cart_row_products">Товары</span><span class="cart-row-val" id="cart-subtotal">0 ₽</span></div>
+        <div class="cart-row"><span class="cart-row-lbl" data-i18n="cart_row_delivery">Доставка</span><span class="cart-row-val" id="cart-delivery">—</span></div>
         <hr class="cart-div">
-        <div class="cart-row total"><span class="cart-row-lbl">Итого</span><span class="cart-row-val" id="cart-total">0 ₽</span></div>
+        <div class="cart-row total"><span class="cart-row-lbl" data-i18n="cart_row_total">Итого</span><span class="cart-row-val" id="cart-total">0 ₽</span></div>
       </div>
-      <button class="checkout-btn" id="checkout-open-btn" disabled>Оформить заказ</button>
+      <button class="checkout-btn" id="checkout-open-btn" disabled data-i18n="checkout_btn">Оформить заказ</button>
     </div>
   </div>
 </div>
@@ -565,35 +584,35 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(201,168,76,.08);pad
   <div class="co-bg" id="co-bg"></div>
   <div class="co-box">
     <button class="co-close" id="co-close-btn">✕</button>
-    <div class="co-ornament">✦ Оформление ✦</div>
-    <h2 class="co-title">Ваш заказ</h2>
-    <p class="co-sub">Доставим магию Мирелии прямо к вам</p>
+    <div class="co-ornament">✦ <span data-i18n="co_ornament">Оформление</span> ✦</div>
+    <h2 class="co-title" data-i18n="co_title">Ваш заказ</h2>
+    <p class="co-sub" data-i18n="co_sub">Доставим магию Мирелии прямо к вам</p>
     <div class="co-mini-cart" id="co-mini-cart"></div>
     <form class="co-form" id="order-form" novalidate>
       <div class="co-row">
-        <div class="co-group"><label class="co-label">Ваше имя *</label><input class="co-field" id="f-name" placeholder="Елена" required></div>
-        <div class="co-group"><label class="co-label">Телефон *</label><input class="co-field" id="f-phone" placeholder="+7 900 000 00 00" required></div>
+        <div class="co-group"><label class="co-label" data-i18n="field_name_label">Ваше имя *</label><input class="co-field" id="f-name" placeholder="Елена" data-i18n-placeholder="field_name_ph" required></div>
+        <div class="co-group"><label class="co-label" data-i18n="field_phone_label">Телефон *</label><input class="co-field" id="f-phone" placeholder="+7 900 000 00 00" data-i18n-placeholder="field_phone_ph" required></div>
       </div>
-      <div class="co-group"><label class="co-label">Email</label><input class="co-field" id="f-email" type="email" placeholder="elena@mail.ru"></div>
-      <div class="co-group"><label class="co-label">Адрес доставки</label><textarea class="co-field co-field-ta" id="f-address" placeholder="г. Москва, ул. Волшебная, д. 1, кв. 7"></textarea></div>
+      <div class="co-group"><label class="co-label" data-i18n="field_email_label">Email</label><input class="co-field" id="f-email" type="email" placeholder="elena@mail.ru" data-i18n-placeholder="field_email_ph"></div>
+      <div class="co-group"><label class="co-label" data-i18n="field_address_label">Адрес доставки</label><textarea class="co-field co-field-ta" id="f-address" placeholder="г. Москва, ул. Волшебная, д. 1, кв. 7" data-i18n-placeholder="field_address_ph"></textarea></div>
       <div>
-        <div class="co-pay-title">Способ оплаты</div>
+        <div class="co-pay-title" data-i18n="pay_title">Способ оплаты</div>
         <div class="pay-opts">
           <div class="pay-opt active" data-pay="robokassa">
             <div class="pay-opt-icon">💳</div>
-            <div class="pay-opt-info"><span class="pay-opt-name">Онлайн</span><span class="pay-opt-sub">Robokassa — карты, СБП, ЮMoney</span></div>
+            <div class="pay-opt-info"><span class="pay-opt-name" data-i18n="pay_online_name">Онлайн</span><span class="pay-opt-sub" data-i18n="pay_online_sub">Robokassa — карты, СБП, ЮMoney</span></div>
           </div>
           <div class="pay-opt" data-pay="cod">
             <div class="pay-opt-icon">📦</div>
-            <div class="pay-opt-info"><span class="pay-opt-name">При получении</span><span class="pay-opt-sub">Наличными или картой курьеру</span></div>
+            <div class="pay-opt-info"><span class="pay-opt-name" data-i18n="pay_cod_name">При получении</span><span class="pay-opt-sub" data-i18n="pay_cod_sub">Наличными или картой курьеру</span></div>
           </div>
         </div>
       </div>
       <button class="co-submit" type="submit" id="co-submit">
         <div class="co-spinner"></div>
-        <span class="co-btn-text">Оплатить <span id="co-submit-amount"></span></span>
+        <span class="co-btn-text"><span data-i18n="submit_pay_prefix">Оплатить</span> <span id="co-submit-amount"></span></span>
       </button>
-      <div class="co-secure">🔒 Защищённое соединение · SSL · Данные в безопасности</div>
+      <div class="co-secure" data-i18n="secure_note">🔒 Защищённое соединение · SSL · Данные в безопасности</div>
     </form>
   </div>
 </div>
@@ -602,15 +621,16 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(201,168,76,.08);pad
 <div class="success-wrap" id="success-overlay">
   <div class="success-stars-bg" id="success-stars"></div>
   <div class="success-icon">✨</div>
-  <div class="success-title">Заказ принят!</div>
-  <p class="success-sub">Мы получили ваш заказ и уже отправляем волшебство.<br>Вскоре с вами свяжется наш менеджер.</p>
+  <div class="success-title" data-i18n="success_title">Заказ принят!</div>
+  <p class="success-sub" data-i18n-html="success_sub_html">Мы получили ваш заказ и уже отправляем волшебство.<br>Вскоре с вами свяжется наш менеджер.</p>
   <div class="success-order" id="success-order-num"></div>
-  <button class="success-back" id="success-back-btn">Продолжить покупки</button>
+  <button class="success-back" id="success-back-btn" data-i18n="success_back_btn">Продолжить покупки</button>
 </div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<script src="i18n.js"></script>
 <script>
 /* ═══════════════════════════════════════
    ⚙️  КОНФИГ — ЗАПОЛНИТЕ ПЕРЕД ЗАПУСКОМ
@@ -634,91 +654,20 @@ async function getChatId() {
   alert('❌ Нет сообщений боту. Пошлите /start боту, затем вызовите getChatId() снова.');
 }
 
-/* ═══ PRODUCTS DATA ═══ */
+/* ═══ PRODUCTS DATA (тексты — в i18n.js → PRODUCT_I18N) ═══ */
 const PRODUCTS = [
-  {id:1,cat:'Проектор',badge:'hit',img:'cat1-projector.webp',
-   name:'Волшебный проектор',
-   short:'Создаёт звёздное небо Мирелии на потолке детской комнаты',
-   long:'Погрузите ребёнка в магию Мирелии каждую ночь. Проектор отображает 8 режимов звёздного неба прямо на потолке. Встроенный таймер, тихий мотор вращения и мягкий ночной режим — идеальный спутник для засыпания.',
-   feats:['8 режимов проекции','Таймер 15/30/60 мин','USB-питание','Бесшумный мотор'],
-   price:3990,old:5490,rating:4.9,rev:186,pop:186},
-
-  {id:2,cat:'Постельное',badge:'new',img:'cat2-bedding.webp',
-   name:'Постельное «Ночное небо»',
-   short:'Комплект с наволочкой и пододеяльником в звёздном дизайне',
-   long:'Засыпайте под звёздами Мирелии. Комплект из 100% гипоаллергенного хлопка с эксклюзивным принтом ночного неба. Подходит для кроватей 120×200 и 140×200 см.',
-   feats:['Хлопок 100%','Гипоаллергенный','120×200 / 140×200','Стирка 40°'],
-   price:4490,old:null,rating:4.8,rev:94,pop:94},
-
-  {id:3,cat:'Полотенца',badge:null,img:'cat3-bedding2.webp',
-   name:'Набор полотенец «Мирелия»',
-   short:'Три полотенца из 100% хлопка с вышивкой персонажей',
-   long:'Банные процедуры превратятся в ритуал из сказки. Три полотенца разного размера с вышивкой любимых персонажей: Бонни, Юки и Куки. Мягкие, быстросохнущие, долговечные.',
-   feats:['3 размера в наборе','Хлопок махровый','Вышивка персонажей','OEKO-TEX'],
-   price:1890,old:null,rating:4.7,rev:213,pop:213},
-
-  {id:4,cat:'Подарки',badge:'hit',img:'cat4-gifts.webp',
-   name:'Набор «Волшебный сундук»',
-   short:'Подарочный набор в фирменной коробке: 5 товаров Мирелии',
-   long:'Лучший подарок для маленького волшебника — сундук с магией Мирелии. Ночник, полотенце, мягкая игрушка, проекционная карта и письмо от Мирелии. Упаковано в коллекционный сундук.',
-   feats:['5 предметов в наборе','Фирменный сундук','Письмо от Мирелии','Готов к вручению'],
-   price:6990,old:8800,rating:5.0,rev:48,pop:48},
-
-  {id:5,cat:'Игрушки',badge:'new',img:'cat5-magic.webp',
-   name:'Замок Мирелии',
-   short:'Хрустальный замок — сборная модель из волшебного стекла',
-   long:'Соберите замок Мирелии из безопасного акрилового стекла с LED-подсветкой. Время сборки 30–60 минут. Для детей от 5 лет.',
-   feats:['Безопасный акрил','LED-подсветка','Для детей 5+','3D-конструктор'],
-   price:2490,old:null,rating:4.6,rev:72,pop:72},
-
-  {id:6,cat:'Игрушки',badge:null,img:'cat6-toys.webp',
-   name:'Жители Мирелии (набор)',
-   short:'Три мягких персонажа из гипоаллергенного плюша',
-   long:'Познакомьтесь с жителями: зайка Бонни, тигрёнок Юки и сова Куки. Каждая игрушка из премиального гипоаллергенного плюша с вышитыми деталями. Высота 25 см.',
-   feats:['3 персонажа','Гипоаллергенный плюш','Высота 25 см','Для детей 0+'],
-   price:3290,old:null,rating:4.8,rev:157,pop:157},
-
-  {id:7,cat:'Проектор',badge:null,img:null,phIcon:'☽',phBg:'rgba(80,60,180,.35)',
-   name:'Ночник «Луна Мирелии»',
-   short:'Мягкое лунное свечение — 3 режима яркости',
-   long:'Тёплый ночник в форме луны наполнит детскую спокойным светом. Три режима яркости, автоотключение, перезаряжаемый аккумулятор. Дизайн с золотыми звёздами Мирелии.',
-   feats:['3 режима яркости','Автоотключение 1ч','USB-C зарядка','8ч работы'],
-   price:1490,old:null,rating:4.7,rev:89,pop:89},
-
-  {id:8,cat:'Постельное',badge:'new',img:null,phIcon:'✵',phBg:'rgba(40,60,140,.35)',
-   name:'Плед «Звёздный лес»',
-   short:'Тёплый плед с золотыми звёздами и силуэтами леса',
-   long:'Укутайтесь в тёплый лес Мирелии. Плед из ультрамягкой микрофибры с эксклюзивным принтом звёздного неба над заколдованным лесом. 130×170 см, машинная стирка.',
-   feats:['Микрофибра','130×170 см','Машинная стирка','Двусторонний'],
-   price:2190,old:null,rating:4.8,rev:134,pop:134},
-
-  {id:9,cat:'Полотенца',badge:null,img:null,phIcon:'✿',phBg:'rgba(100,80,160,.3)',
-   name:'Халат детский «Тофу»',
-   short:'Мягкий махровый халат с вышивкой Тофу, хлопок 100%',
-   long:'После ванной — в объятия Тофу. Мягкий халат из 100% хлопка с вышивкой медвежонка Тофу на кармане. Пояс, капюшон. Размеры 86–128 см.',
-   feats:['Хлопок 100%','4 размера','Капюшон и пояс','Карман с Тофу'],
-   price:2890,old:null,rating:4.6,rev:56,pop:56},
-
-  {id:10,cat:'Игрушки',badge:null,img:null,phIcon:'◆',phBg:'rgba(60,100,180,.3)',
-   name:'Мягкая игрушка «Юки»',
-   short:'Плюшевый тигрёнок Юки, 30 см, гипоаллергенный',
-   long:'Юки — самый добрый тигрёнок в Мирелии. Из премиального плюша с вышитыми глазами-звёздами и полосками цвета ночного неба. Идеальный компаньон для сна.',
-   feats:['Высота 30 см','Гипоаллергенный','Вышитые детали','Для детей 0+'],
-   price:1790,old:null,rating:4.9,rev:203,pop:203},
-
-  {id:11,cat:'Подарки',badge:null,img:null,phIcon:'◈',phBg:'rgba(140,100,30,.3)',
-   name:'Шкатулка «Тайная магия»',
-   short:'Лаковая шкатулка с бархатным интерьером и золотым орнаментом',
-   long:'Хранилище сокровенных тайн. Лаковая шкатулка тёмно-синего цвета с ручной росписью. Внутри — бархат ночного неба. Замок с ключиком. 18×12×8 см.',
-   feats:['Ручная роспись','Бархатный интерьер','Замок с ключиком','18×12×8 см'],
-   price:3490,old:null,rating:4.7,rev:41,pop:41},
-
-  {id:12,cat:'Постельное',badge:'new',img:null,phIcon:'❀',phBg:'rgba(100,60,180,.3)',
-   name:'Подушка «Бонни»',
-   short:'Декоративная подушка-зайка из гипоаллергенного плюша, 40×40 см',
-   long:'Бонни — самая мягкая зайка в Мирелии. Подушка-игрушка с ушками, съёмный чехол для стирки. Гипоаллергенный наполнитель. 40×40 см.',
-   feats:['Гипоаллергенный','Съёмный чехол','40×40 см','Для детей 0+'],
-   price:1290,old:null,rating:4.8,rev:178,pop:178}
+  {id:1,catSlug:'projector',badge:'hit',img:'cat1-projector.webp',price:3990,old:5490,rating:4.9,rev:186,pop:186},
+  {id:2,catSlug:'bedding',badge:'new',img:'cat2-bedding.webp',price:4490,old:null,rating:4.8,rev:94,pop:94},
+  {id:3,catSlug:'towels',badge:null,img:'cat3-bedding2.webp',price:1890,old:null,rating:4.7,rev:213,pop:213},
+  {id:4,catSlug:'gifts',badge:'hit',img:'cat4-gifts.webp',price:6990,old:8800,rating:5.0,rev:48,pop:48},
+  {id:5,catSlug:'toys',badge:'new',img:'cat5-magic.webp',price:2490,old:null,rating:4.6,rev:72,pop:72},
+  {id:6,catSlug:'toys',badge:null,img:'cat6-toys.webp',price:3290,old:null,rating:4.8,rev:157,pop:157},
+  {id:7,catSlug:'projector',badge:null,img:null,phIcon:'☽',phBg:'rgba(80,60,180,.35)',price:1490,old:null,rating:4.7,rev:89,pop:89},
+  {id:8,catSlug:'bedding',badge:'new',img:null,phIcon:'✵',phBg:'rgba(40,60,140,.35)',price:2190,old:null,rating:4.8,rev:134,pop:134},
+  {id:9,catSlug:'towels',badge:null,img:null,phIcon:'✿',phBg:'rgba(100,80,160,.3)',price:2890,old:null,rating:4.6,rev:56,pop:56},
+  {id:10,catSlug:'toys',badge:null,img:null,phIcon:'◆',phBg:'rgba(60,100,180,.3)',price:1790,old:null,rating:4.9,rev:203,pop:203},
+  {id:11,catSlug:'gifts',badge:null,img:null,phIcon:'◈',phBg:'rgba(140,100,30,.3)',price:3490,old:null,rating:4.7,rev:41,pop:41},
+  {id:12,catSlug:'bedding',badge:'new',img:null,phIcon:'❀',phBg:'rgba(100,60,180,.3)',price:1290,old:null,rating:4.8,rev:178,pop:178}
 ];
 
 /* ═══ STATE ═══ */
@@ -732,18 +681,21 @@ let toastTimer;
 
 /* ═══ UTILS ═══ */
 const $  = id => document.getElementById(id);
-const fmt = n => n.toLocaleString('ru-RU') + ' ₽';
+const fmt = n => {
+  const loc = getLang()==='en' ? 'en-US' : getLang()==='es' ? 'es-ES' : 'ru-RU';
+  return n.toLocaleString(loc) + ' ₽';
+};
 const starsStr = r => '★'.repeat(Math.round(r)) + '☆'.repeat(5 - Math.round(r));
 const findP = id => PRODUCTS.find(p => p.id === id);
 
 /* ═══ FILTER CATEGORIES ═══ */
-(function buildFilters() {
+function buildFilters() {
   const cats = {};
-  PRODUCTS.forEach(p => cats[p.cat] = (cats[p.cat]||0) + 1);
+  PRODUCTS.forEach(p => cats[p.catSlug] = (cats[p.catSlug]||0) + 1);
   const wrap = $('filter-cats');
-  const items = [['all','Все',PRODUCTS.length],...Object.entries(cats).map(([c,n])=>[c,c,n])];
+  const items = [['all',t('filter_all'),PRODUCTS.length],...Object.entries(cats).map(([slug,n])=>[slug,catLabel(slug),n])];
   wrap.innerHTML = items.map(([key,label,n]) =>
-    `<button class="fcat${key==='all'?' active':''}" data-cat="${key}">${label}<span class="fcat-count">${n}</span></button>`
+    `<button class="fcat${key===curCat?' active':''}" data-cat="${key}">${label}<span class="fcat-count">${n}</span></button>`
   ).join('');
   wrap.querySelectorAll('.fcat').forEach(btn => btn.addEventListener('click', () => {
     wrap.querySelectorAll('.fcat').forEach(b=>b.classList.remove('active'));
@@ -751,26 +703,27 @@ const findP = id => PRODUCTS.find(p => p.id === id);
     curCat = btn.dataset.cat;
     filterAndSort();
   }));
-})();
+}
+buildFilters();
 
 /* ═══ RENDER GRID ═══ */
 function renderGrid(products) {
   const grid = $('prod-grid');
   if (!products.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 20px;color:rgba(240,237,232,.25);font-style:italic;font-size:18px">Товары не найдены</div>';
-    $('prod-count').textContent = 'Ничего не найдено';
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 20px;color:rgba(240,237,232,.25);font-style:italic;font-size:18px">${t('products_not_found')}</div>`;
+    $('prod-count').textContent = t('nothing_found');
     return;
   }
-  $('prod-count').textContent = `Показано ${products.length} товар${products.length===1?'':'ов'}`;
+  $('prod-count').textContent = shownProductsText(products.length);
   grid.innerHTML = products.map(p => `
     <div class="pcard" data-id="${p.id}">
       <div class="pcard-img-wrap"
            ${p.img ? '' : `style="background:radial-gradient(circle at 50% 40%,${p.phBg} 0%,rgba(8,5,28,.92) 70%)"`}
            onclick="openModal(${p.id})">
         ${p.img
-          ? `<img class="pcard-img" src="${p.img}" alt="${p.name}" loading="lazy">`
-          : `<div class="pcard-placeholder"><div class="ph-icon">${p.phIcon}</div><div class="ph-label">Фото скоро</div></div>`}
-        ${p.badge ? `<span class="badge ${p.badge}">${p.badge==='hit'?'Хит':'Новинка'}</span>` : ''}
+          ? `<img class="pcard-img" src="${p.img}" alt="${pName(p)}" loading="lazy">`
+          : `<div class="pcard-placeholder"><div class="ph-icon">${p.phIcon}</div><div class="ph-label">${t('photo_soon')}</div></div>`}
+        ${p.badge ? `<span class="badge ${p.badge}">${badgeLabel(p.badge)}</span>` : ''}
         <button class="wish-btn" onclick="toggleWish(event,${p.id})" id="wbg-${p.id}">${wishlist.has(p.id)?'♥':'♡'}</button>
       </div>
       <div class="pcard-body">
@@ -779,14 +732,14 @@ function renderGrid(products) {
           <span class="rate-num">${p.rating}</span>
           <span class="rate-cnt">(${p.rev})</span>
         </div>
-        <h3 class="pcard-name" onclick="openModal(${p.id})">${p.name}</h3>
-        <p class="pcard-desc">${p.short}</p>
+        <h3 class="pcard-name" onclick="openModal(${p.id})">${pName(p)}</h3>
+        <p class="pcard-desc">${pShort(p)}</p>
         <div class="pcard-footer">
           <div class="pcard-price">
             <span class="price-main">${fmt(p.price)}</span>
             ${p.old ? `<span class="price-old">${fmt(p.old)}</span>` : ''}
           </div>
-          <button class="add-btn" onclick="addFromGrid(this,${p.id})">В корзину</button>
+          <button class="add-btn" onclick="addFromGrid(this,${p.id})">${t('modal_add_to_cart')}</button>
         </div>
       </div>
     </div>
@@ -795,7 +748,7 @@ function renderGrid(products) {
 
 function filterAndSort() {
   const sort = $('sort-sel').value;
-  let list = curCat === 'all' ? [...PRODUCTS] : PRODUCTS.filter(p => p.cat === curCat);
+  let list = curCat === 'all' ? [...PRODUCTS] : PRODUCTS.filter(p => p.catSlug === curCat);
   if (sort === 'cheap') list.sort((a,b) => a.price - b.price);
   else if (sort === 'exp') list.sort((a,b) => b.price - a.price);
   else if (sort === 'rate') list.sort((a,b) => b.rating - a.rating);
@@ -810,10 +763,10 @@ filterAndSort();
 function addFromGrid(btn, id) {
   if (btn.classList.contains('added')) return;
   addToCart(id, 1);
-  btn.textContent = '✓ Добавлено';
+  btn.textContent = t('modal_added_label');
   btn.classList.add('added');
-  showToast(`«${findP(id).name}» добавлен в корзину`);
-  setTimeout(() => { btn.textContent='В корзину'; btn.classList.remove('added'); }, 2000);
+  showToast(toastAddedGridText(pName(findP(id))));
+  setTimeout(() => { btn.textContent=t('modal_add_to_cart'); btn.classList.remove('added'); }, 2000);
 }
 
 /* ═══ WISHLIST ═══ */
@@ -836,25 +789,25 @@ function openModal(id) {
   // image col
   const imgCol = $('pmodal-img-col');
   imgCol.innerHTML = p.img
-    ? `${p.badge ? `<span class="pmodal-badge ${p.badge}">${p.badge==='hit'?'Хит':'Новинка'}</span>` : ''}
-       <img class="pmodal-img" src="${p.img}" alt="${p.name}">`
+    ? `${p.badge ? `<span class="pmodal-badge ${p.badge}">${badgeLabel(p.badge)}</span>` : ''}
+       <img class="pmodal-img" src="${p.img}" alt="${pName(p)}">`
     : `<div class="pmodal-ph" style="background:radial-gradient(ellipse at 50% 40%,${p.phBg} 0%,transparent 65%)">
          <span class="pmodal-ph-icon">${p.phIcon}</span>
-         <span class="pmodal-ph-label">Фото скоро</span>
+         <span class="pmodal-ph-label">${t('photo_soon')}</span>
        </div>`;
 
   // info
-  $('pmodal-cat').textContent = p.cat;
-  $('pmodal-title').textContent = p.name;
+  $('pmodal-cat').textContent = catLabel(p.catSlug);
+  $('pmodal-title').textContent = pName(p);
   $('pmodal-stars').textContent = starsStr(p.rating);
   $('pmodal-rnum').textContent = p.rating;
-  $('pmodal-rcnt').textContent = `(${p.rev} отзывов)`;
+  $('pmodal-rcnt').textContent = reviewsParenText(p.rev);
   $('pmodal-price').textContent = fmt(p.price);
   const oldEl = $('pmodal-old');
   oldEl.textContent = p.old ? fmt(p.old) : '';
   oldEl.style.display = p.old ? '' : 'none';
-  $('pmodal-desc').textContent = p.long;
-  $('pmodal-feats').innerHTML = p.feats.map(f=>`<span class="pmodal-feat">${f}</span>`).join('');
+  $('pmodal-desc').textContent = pLong(p);
+  $('pmodal-feats').innerHTML = pFeats(p).map(f=>`<span class="pmodal-feat">${f}</span>`).join('');
   $('qty-val').textContent = 1;
 
   // wishlist btn
@@ -865,20 +818,20 @@ function openModal(id) {
 
   // add btn state
   const addBtn = $('pmodal-add-btn');
-  addBtn.textContent = 'В корзину';
+  addBtn.textContent = t('modal_add_to_cart');
   addBtn.classList.remove('added');
 
   // related
   const related = [...PRODUCTS].filter(x => x.id !== p.id)
-    .sort((a,b) => (a.cat===p.cat?0:1)-(b.cat===p.cat?0:1) || b.pop-a.pop)
+    .sort((a,b) => (a.catSlug===p.catSlug?0:1)-(b.catSlug===p.catSlug?0:1) || b.pop-a.pop)
     .slice(0, 3);
   $('pmodal-related').innerHTML = related.map(r => `
     <div class="rel-card" onclick="openModal(${r.id})">
       <div class="rel-card-img" ${r.img?'':` style="background:radial-gradient(circle at 50%,${r.phBg},rgba(8,5,28,.9))"`}>
-        ${r.img ? `<img src="${r.img}" alt="${r.name}">` : `<span class="rel-ph">${r.phIcon}</span>`}
+        ${r.img ? `<img src="${r.img}" alt="${pName(r)}">` : `<span class="rel-ph">${r.phIcon}</span>`}
       </div>
       <div class="rel-card-body">
-        <div class="rel-card-name">${r.name}</div>
+        <div class="rel-card-name">${pName(r)}</div>
         <div class="rel-card-price">${fmt(r.price)}</div>
       </div>
     </div>
@@ -903,10 +856,10 @@ $('pmodal-add-btn').addEventListener('click', () => {
   if (!curModal) return;
   addToCart(curModal.id, curQty);
   const btn = $('pmodal-add-btn');
-  btn.textContent = `✓ Добавлено (${curQty})`;
+  btn.textContent = `${t('modal_added_label')} (${curQty})`;
   btn.classList.add('added');
-  showToast(`«${curModal.name}» × ${curQty} в корзине`);
-  setTimeout(() => { btn.textContent='В корзину'; btn.classList.remove('added'); }, 2000);
+  showToast(toastAddedModalText(pName(curModal), curQty));
+  setTimeout(() => { btn.textContent=t('modal_add_to_cart'); btn.classList.remove('added'); }, 2000);
 });
 
 $('pmodal-wish-btn').addEventListener('click', (e) => {
@@ -969,7 +922,7 @@ function renderCartItems() {
   $('cart-count').textContent = n;
 
   if (!cart.length) {
-    list.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">✦</div><div class="cart-empty-text">Ваша корзина пуста.<br>Наполните её волшебством Мирелии.</div></div>`;
+    list.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">✦</div><div class="cart-empty-text">${t('cart_empty_html')}</div></div>`;
     $('checkout-open-btn').disabled = true;
     $('cart-subtotal').textContent = fmt(0);
     $('cart-delivery').textContent = '—';
@@ -981,10 +934,10 @@ function renderCartItems() {
     const p = findP(item.id);
     return `
       <div class="ci">
-        <div class="ci-img">${p.img ? `<img src="${p.img}" alt="${p.name}">` : `<span class="ci-ph">${p.phIcon}</span>`}</div>
+        <div class="ci-img">${p.img ? `<img src="${p.img}" alt="${pName(p)}">` : `<span class="ci-ph">${p.phIcon}</span>`}</div>
         <div class="ci-info">
-          <div class="ci-name">${p.name}</div>
-          <div class="ci-unit">${fmt(p.price)} / шт</div>
+          <div class="ci-name">${pName(p)}</div>
+          <div class="ci-unit">${fmt(p.price)} ${t('unit_label')}</div>
           <div class="ci-price">${fmt(p.price * item.qty)}</div>
         </div>
         <div class="ci-right">
@@ -993,7 +946,7 @@ function renderCartItems() {
             <div class="ci-qty-val">${item.qty}</div>
             <button class="ci-qty-btn" onclick="changeQty(${p.id},1)">+</button>
           </div>
-          <button class="ci-remove" onclick="removeFromCart(${p.id})" title="Удалить">✕</button>
+          <button class="ci-remove" onclick="removeFromCart(${p.id})" title="${getLang()==='es'?'Eliminar':getLang()==='en'?'Remove':'Удалить'}">✕</button>
         </div>
       </div>`;
   }).join('');
@@ -1001,7 +954,7 @@ function renderCartItems() {
   const sub = cartTotal();
   const del = sub >= 3000 ? 0 : 300;
   $('cart-subtotal').textContent = fmt(sub);
-  $('cart-delivery').textContent = del === 0 ? 'Бесплатно 🎁' : fmt(del);
+  $('cart-delivery').textContent = del === 0 ? t('cart_free_gift') : fmt(del);
   $('cart-total').textContent = fmt(sub + del);
   $('checkout-open-btn').disabled = false;
 }
@@ -1029,23 +982,39 @@ function renderCoSummary() {
   $('co-mini-cart').innerHTML = cart.map(item => {
     const p = findP(item.id);
     return `<div class="co-mini-item">
-      <span class="co-mini-name">${p.name}</span>
+      <span class="co-mini-name">${pName(p)}</span>
       <span class="co-mini-qty">× ${item.qty}</span>
       <span class="co-mini-price">${fmt(p.price * item.qty)}</span>
     </div>`;
   }).join('') + `
     <hr class="co-mini-sep">
     <div class="co-mini-item">
-      <span class="co-mini-name" style="color:rgba(240,237,232,.4)">Доставка</span>
+      <span class="co-mini-name" style="color:rgba(240,237,232,.4)">${t('cart_row_delivery')}</span>
       <span class="co-mini-qty"></span>
-      <span class="co-mini-price" style="color:rgba(201,168,76,.5)">${del===0?'Бесплатно':fmt(del)}</span>
+      <span class="co-mini-price" style="color:rgba(201,168,76,.5)">${del===0?t('free_plain'):fmt(del)}</span>
     </div>
     <div class="co-mini-total-row">
-      <span class="co-mini-total-lbl">Итого</span>
+      <span class="co-mini-total-lbl">${t('cart_row_total')}</span>
       <span class="co-mini-total-val">${fmt(tot)}</span>
     </div>`;
   $('co-submit-amount').textContent = fmt(tot);
 }
+
+/* ═══ ЯЗЫК: перерисовка при смене (регистрируем сразу после того, как
+   определены все функции, от которых это зависит — чтобы более поздний
+   код (канвасы, анимации) ни при каких условиях не мог помешать подписке) ═══ */
+window.addEventListener('mirelialangchange', () => {
+  buildFilters();
+  filterAndSort();
+  renderCartItems();
+  if (curModal) {
+    const savedQty = curQty;
+    openModal(curModal.id);
+    curQty = savedQty;
+    $('qty-val').textContent = curQty;
+  }
+  if ($('checkout-modal').classList.contains('open')) renderCoSummary();
+});
 
 // payment selection
 document.querySelectorAll('.pay-opt').forEach(opt => {
@@ -1079,7 +1048,8 @@ $('order-form').addEventListener('submit', async e => {
   const sub     = cartTotal();
   const del     = sub >= 3000 ? 0 : 300;
   const payLbl  = selPay === 'robokassa' ? '💳 Онлайн (Robokassa)' : '📦 При получении';
-  const lines   = cart.map(i => { const p=findP(i.id); return `• ${p.name} × ${i.qty} — ${fmt(p.price*i.qty)}`; }).join('\n');
+  const lines   = cart.map(i => { const p=findP(i.id); return `• ${pName(p)} × ${i.qty} — ${fmt(p.price*i.qty)}`; }).join('\n');
+  const langLbl = {ru:'Русский',en:'Английский',es:'Испанский'}[getLang()] || getLang();
 
   const msg = [
     `🛒 <b>НОВЫЙ ЗАКАЗ #${orderId}</b>`,``,
@@ -1091,6 +1061,7 @@ $('order-form').addEventListener('submit', async e => {
     del ? `📦 Доставка: ${fmt(del)}` : `📦 Доставка: Бесплатно`,
     `💰 <b>ИТОГО: ${fmt(sub+del)}</b>`,``,
     `💳 Оплата: ${payLbl}`,
+    `🌐 Язык сайта: ${langLbl}`,
     `📅 ${new Date().toLocaleString('ru-RU')}`
   ].filter(x=>x!==null).join('\n');
 
@@ -1119,7 +1090,9 @@ async function sendTelegram(text) {
 
 /* ═══ SUCCESS ═══ */
 function showSuccess(orderId) {
-  $('success-order-num').textContent = `Заказ #${orderId} принят и отправлен менеджеру`;
+  const lang = getLang();
+  const lbl = lang==='es' ? `Pedido #${orderId} recibido y enviado al equipo` : lang==='en' ? `Order #${orderId} received and sent to manager` : `Заказ #${orderId} принят и отправлен менеджеру`;
+  $('success-order-num').textContent = lbl;
   const overlay = $('success-overlay');
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1144,11 +1117,11 @@ $('success-back-btn').addEventListener('click', () => {
 
 /* ═══ TOAST ═══ */
 function showToast(msg) {
-  const t = $('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  const toastEl = $('toast');
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2800);
 }
 
 /* ═══ MOBILE MENU ═══ */

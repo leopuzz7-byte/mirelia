@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>МИРЕЛИЯ — Мир, где исполняются мечты</title>
+<title data-i18n="site_title_index">МИРЕЛИЯ — Мир, где исполняются мечты</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -29,6 +29,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 50px;display:fl
 .nav-links{display:flex;gap:32px}
 .nav-links a{color:rgba(240,237,232,.5);text-decoration:none;font-size:12px;letter-spacing:.15em;text-transform:uppercase;transition:color .3s;cursor:none}
 .nav-links a:hover{color:var(--gold2)}
+
+/* ── LANGUAGE SWITCH ── */
+.lang-switch{display:flex;align-items:center;gap:2px;border:1px solid rgba(201,168,76,.28);border-radius:20px;padding:3px;background:rgba(8,5,28,.35);backdrop-filter:blur(6px);cursor:auto}
+.lang-btn{background:none;border:none;color:rgba(240,237,232,.5);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;padding:5px 12px;border-radius:16px;cursor:pointer;transition:background .3s,color .3s}
+.lang-btn:hover{color:var(--gold2)}
+.lang-btn.active{background:linear-gradient(135deg,rgba(201,168,76,.38),rgba(201,168,76,.18));color:var(--gold3)}
+.lang-switch-mobile{margin-top:6px}
+.lang-switch-mobile .lang-btn{font-size:12px;padding:8px 15px}
 
 /* ════════════════════════
    SCENE 1 — HERO
@@ -429,6 +437,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 50px;display:fl
   nav{padding:14px 20px}
   .nav-links{display:none}
   .nav-burger{display:flex}
+  #lang-switch-desktop{display:none}
   #s1-bg{background:url('osnova-mobile.webp') center 20%/cover no-repeat;transform-origin:50% 20%}
   #s1{height:850vh}
   #hero-emblem{width:min(190px,55vw)}
@@ -475,17 +484,27 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
 <nav>
   <div class="nav-logo">МИРЕЛИЯ</div>
   <div class="nav-links">
-    <a href="catalog.html">Каталог</a>
-    <a href="#s-chars">Персонажи</a>
-    <a href="#s6">Отзывы</a>
+    <a href="catalog.html" data-i18n="nav_catalog">Каталог</a>
+    <a href="#s-chars" data-i18n="nav_characters">Персонажи</a>
+    <a href="#s6" data-i18n="nav_reviews">Отзывы</a>
   </div>
-  <button class="nav-burger" id="nav-burger" aria-label="Меню"><span></span><span></span><span></span></button>
+  <div class="lang-switch" id="lang-switch-desktop">
+    <button class="lang-btn" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="es">ES</button>
+  </div>
+  <button class="nav-burger" id="nav-burger" data-i18n-aria="nav_menu_aria" aria-label="Меню"><span></span><span></span><span></span></button>
 </nav>
 <div id="nav-mobile">
   <button class="nav-mobile-close" id="nav-close">✕</button>
-  <a href="catalog.html" class="nav-mob-link">Каталог</a>
-  <a href="#s-chars" class="nav-mob-link">Персонажи</a>
-  <a href="#s6" class="nav-mob-link">Отзывы</a>
+  <a href="catalog.html" class="nav-mob-link" data-i18n="nav_catalog">Каталог</a>
+  <a href="#s-chars" class="nav-mob-link" data-i18n="nav_characters">Персонажи</a>
+  <a href="#s6" class="nav-mob-link" data-i18n="nav_reviews">Отзывы</a>
+  <div class="lang-switch lang-switch-mobile" id="lang-switch-mobile">
+    <button class="lang-btn" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="es">ES</button>
+  </div>
 </div>
 
 <!-- ════════════════════════════════════════
@@ -498,11 +517,11 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
 
     <!-- Слой 2 — зверьки у дерева -->
     <div id="s1-over15">
-      <img src="15.jpeg" alt="Зверьки в лесу Мирелии">
+      <img src="15.jpeg" alt="Зверьки в лесу Мирелии" data-i18n-alt="alt_forest_animals">
       <div id="s1-over15-overlay">
         <div>
-          <p class="ov-hint">Добро пожаловать</p>
-          <h2 class="ov-title">в Мирелию</h2>
+          <p class="ov-hint" data-i18n="hero_welcome_hint">Добро пожаловать</p>
+          <h2 class="ov-title" data-i18n="hero_welcome_title">в Мирелию</h2>
         </div>
       </div>
     </div>
@@ -513,13 +532,13 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
     <!-- Лого -->
     <div id="hero-content">
       <div id="hero-emblem">
-        <img src="logo_emblem.png" alt="Мирелия">
+        <img src="logo_emblem.png" alt="Мирелия" data-i18n-alt="alt_emblem">
         <div class="emblem-glow"></div>
       </div>
       <div id="hero-logo-text">
-        <img src="logo_text.png" alt="МИРЕЛИЯ — Мир, где исполняются мечты">
+        <img src="logo_text.png" alt="МИРЕЛИЯ — Мир, где исполняются мечты" data-i18n-alt="alt_logo_text">
       </div>
-      <a href="#s3" class="hero-cta">Войти в мир</a>
+      <a href="#s3" class="hero-cta" data-i18n="hero_cta">Войти в мир</a>
     </div>
 
     <!-- Видео-слой (автоплей после анимаций) -->
@@ -530,7 +549,7 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
     </div>
 
     <div class="scroll-hint" id="scroll-hint">
-      <span>Прокрути вниз</span>
+      <span data-i18n="hero_scroll_hint">Прокрути вниз</span>
       <div class="scroll-bar"></div>
     </div>
   </div>
@@ -545,83 +564,83 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
     <!-- Вступительный экран -->
     <div id="s-chars-intro">
       <div id="s-chars-intro-inner">
-        <p class="ci-hint">Жители Мирелии</p>
-        <p class="ci-title">Познакомьтесь</p>
+        <p class="ci-hint" data-i18n="chars_intro_hint">Жители Мирелии</p>
+        <p class="ci-title" data-i18n="chars_intro_title">Познакомьтесь</p>
       </div>
     </div>
 
     <!-- 01 Мишка -->
     <div class="char-slide" id="ch0">
       <div class="char-photo">
-        <img src="photo_2026-06-10_12-50-31.jpg" alt="Мишка">
+        <img src="photo_2026-06-10_12-50-31.jpg" alt="Мишка" data-i18n-alt="alt_char0">
         <div class="char-photo-glow"></div>
       </div>
       <div class="char-info">
         <span class="char-num">01 / 05</span>
-        <h2 class="char-name-big">Тофу</h2>
+        <h2 class="char-name-big" data-i18n="char0_name">Тофу</h2>
         <div class="char-divider"></div>
-        <p class="char-story">Самый добрый страж Мирелии. Его объятия теплее любого очага, а сердце хранит самые смелые мечты всего леса.</p>
-        <span class="char-badge">✦ Страж леса</span>
+        <p class="char-story" data-i18n="char0_story">Самый добрый страж Мирелии. Его объятия теплее любого очага, а сердце хранит самые смелые мечты всего леса.</p>
+        <span class="char-badge">✦ <span data-i18n="char0_badge">Страж леса</span></span>
       </div>
     </div>
 
     <!-- 02 Зайка -->
     <div class="char-slide rev" id="ch1">
       <div class="char-photo">
-        <img src="photo_2026-06-10_12-50-29.jpg" alt="Зайка">
+        <img src="photo_2026-06-10_12-50-29.jpg" alt="Зайка" data-i18n-alt="alt_char1">
         <div class="char-photo-glow"></div>
       </div>
       <div class="char-info">
         <span class="char-num">02 / 05</span>
-        <h2 class="char-name-big">Бонни</h2>
+        <h2 class="char-name-big" data-i18n="char1_name">Бонни</h2>
         <div class="char-divider"></div>
-        <p class="char-story">Хранительница звёздных секретов. Она слышит голоса хрустальных камней и говорит на языке ночных светил.</p>
-        <span class="char-badge">✦ Хранительница тайн</span>
+        <p class="char-story" data-i18n="char1_story">Хранительница звёздных секретов. Она слышит голоса хрустальных камней и говорит на языке ночных светил.</p>
+        <span class="char-badge">✦ <span data-i18n="char1_badge">Хранительница тайн</span></span>
       </div>
     </div>
 
     <!-- 03 Тигрёнок -->
     <div class="char-slide" id="ch2">
       <div class="char-photo">
-        <img src="photo_2026-06-10_12-50-25.jpg" alt="Тигрёнок">
+        <img src="photo_2026-06-10_12-50-25.jpg" alt="Тигрёнок" data-i18n-alt="alt_char2">
         <div class="char-photo-glow"></div>
       </div>
       <div class="char-info">
         <span class="char-num">03 / 05</span>
-        <h2 class="char-name-big">Юки</h2>
+        <h2 class="char-name-big" data-i18n="char2_name">Юки</h2>
         <div class="char-divider"></div>
-        <p class="char-story">Смелый и стремительный. Его синие глаза видят сквозь любой туман — он первым бросается навстречу приключениям.</p>
-        <span class="char-badge">✦ Первый герой</span>
+        <p class="char-story" data-i18n="char2_story">Смелый и стремительный. Его синие глаза видят сквозь любой туман — он первым бросается навстречу приключениям.</p>
+        <span class="char-badge">✦ <span data-i18n="char2_badge">Первый герой</span></span>
       </div>
     </div>
 
     <!-- 04 Корги -->
     <div class="char-slide rev" id="ch3">
       <div class="char-photo">
-        <img src="photo_2026-06-10_12-50-27.jpg" alt="Корги">
+        <img src="photo_2026-06-10_12-50-27.jpg" alt="Корги" data-i18n-alt="alt_char3">
         <div class="char-photo-glow"></div>
       </div>
       <div class="char-info">
         <span class="char-num">04 / 05</span>
-        <h2 class="char-name-big">Куки</h2>
+        <h2 class="char-name-big" data-i18n="char3_name">Куки</h2>
         <div class="char-divider"></div>
-        <p class="char-story">Весёлый путешественник и лучший друг. Знает дорогу во все семь миров Мирелии и никогда не теряет карту.</p>
-        <span class="char-badge">✦ Путешественник</span>
+        <p class="char-story" data-i18n="char3_story">Весёлый путешественник и лучший друг. Знает дорогу во все семь миров Мирелии и никогда не теряет карту.</p>
+        <span class="char-badge">✦ <span data-i18n="char3_badge">Путешественник</span></span>
       </div>
     </div>
 
     <!-- 05 Лиска -->
     <div class="char-slide" id="ch4">
       <div class="char-photo">
-        <img src="lisa_archi.webp" alt="Арчи" style="object-position:center center">
+        <img src="lisa_archi.webp" alt="Арчи" style="object-position:center center" data-i18n-alt="alt_char4">
         <div class="char-photo-glow"></div>
       </div>
       <div class="char-info">
         <span class="char-num">05 / 05</span>
-        <h2 class="char-name-big">Арчи</h2>
+        <h2 class="char-name-big" data-i18n="char4_name">Арчи</h2>
         <div class="char-divider"></div>
-        <p class="char-story">Мастер загадок и волшебных зелий. Его рыжий хвост светится в ночи, как маяк для заблудившихся путников.</p>
-        <span class="char-badge">✦ Мастер зелий</span>
+        <p class="char-story" data-i18n="char4_story">Мастер загадок и волшебных зелий. Его рыжий хвост светится в ночи, как маяк для заблудившихся путников.</p>
+        <span class="char-badge">✦ <span data-i18n="char4_badge">Мастер зелий</span></span>
       </div>
     </div>
 
@@ -719,41 +738,41 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
      SCENE 3 — КАТАЛОГ
 ════════════════════════════════════════ -->
 <section id="s3">
-  <h2 class="sec-title" id="s3t">Волшебный каталог</h2>
-  <p class="sec-sub" id="s3s">Выбери то, что нравится тебе</p>
+  <h2 class="sec-title" id="s3t" data-i18n="magical_catalog_title">Волшебный каталог</h2>
+  <p class="sec-sub" id="s3s" data-i18n="s3_sub">Выбери то, что нравится тебе</p>
   <div class="crystals">
     <div class="ccard" onclick="location.href='catalog.html'">
       <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(100,70,200,.35))"></div>
-      <img class="ci" src="cat3-bedding2.webp" alt="Полотенца">
-      <div class="cname">Полотенца</div><div class="ccnt">18 товаров</div>
+      <img class="ci" src="cat3-bedding2.webp" alt="Полотенца" data-i18n-alt="card_towels_name">
+      <div class="cname" data-i18n="card_towels_name">Полотенца</div><div class="ccnt" data-i18n="card_towels_count">18 товаров</div>
     </div>
     <div class="ccard" onclick="location.href='catalog.html'">
       <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(120,50,220,.4))"></div>
-      <img class="ci" src="cat1-projector.webp" alt="Волшебный проектор">
-      <div class="cname">Волшебный проектор</div><div class="ccnt">8 товаров</div>
+      <img class="ci" src="cat1-projector.webp" alt="Волшебный проектор" data-i18n-alt="card_projector_name">
+      <div class="cname" data-i18n="card_projector_name">Волшебный проектор</div><div class="ccnt" data-i18n="card_projector_count">8 товаров</div>
     </div>
     <div class="ccard" onclick="location.href='catalog.html'">
       <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(40,90,210,.35))"></div>
-      <img class="ci" src="cat2-bedding.webp" alt="Постельное">
-      <div class="cname">Постельное</div><div class="ccnt">14 товаров</div>
+      <img class="ci" src="cat2-bedding.webp" alt="Постельное" data-i18n-alt="card_bedding_name">
+      <div class="cname" data-i18n="card_bedding_name">Постельное</div><div class="ccnt" data-i18n="card_bedding_count">14 товаров</div>
     </div>
     <div class="ccard" onclick="location.href='catalog.html'">
       <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(60,70,200,.38))"></div>
-      <img class="ci" src="cat4-gifts.webp" alt="Подарки">
-      <div class="cname">Подарки</div><div class="ccnt">24 товара</div>
+      <img class="ci" src="cat4-gifts.webp" alt="Подарки" data-i18n-alt="card_gifts_name">
+      <div class="cname" data-i18n="card_gifts_name">Подарки</div><div class="ccnt" data-i18n="card_gifts_count">24 товара</div>
     </div>
     <div class="ccard" onclick="location.href='catalog.html'">
       <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(90,50,170,.4))"></div>
-      <img class="ci" src="cat5-magic.webp" alt="Магический мир">
-      <div class="cname">Магический мир</div><div class="ccnt">8 товаров</div>
+      <img class="ci" src="cat5-magic.webp" alt="Магический мир" data-i18n-alt="card_magic_name">
+      <div class="cname" data-i18n="card_magic_name">Магический мир</div><div class="ccnt" data-i18n="card_magic_count">8 товаров</div>
     </div>
     <div class="ccard" onclick="location.href='catalog.html'">
       <div class="cglow" style="background:linear-gradient(180deg,transparent,rgba(160,100,40,.35))"></div>
-      <img class="ci" src="cat6-toys.webp" alt="Персонажи">
-      <div class="cname">Персонажи</div><div class="ccnt">21 товар</div>
+      <img class="ci" src="cat6-toys.webp" alt="Персонажи" data-i18n-alt="card_characters_name">
+      <div class="cname" data-i18n="card_characters_name">Персонажи</div><div class="ccnt" data-i18n="card_characters_count">21 товар</div>
     </div>
   </div>
-  <a href="catalog.html" class="catalog-btn">Перейти в каталог</a>
+  <a href="catalog.html" class="catalog-btn" data-i18n="catalog_btn">Перейти в каталог</a>
 </section>
 
 
@@ -762,25 +781,25 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
 ════════════════════════════════════════ -->
 <section id="s-about">
   <div class="about-inner">
-    <div class="about-eyebrow" id="abt-eyebrow">О проекте</div>
+    <div class="about-eyebrow" id="abt-eyebrow" data-i18n="about_eyebrow">О проекте</div>
     <h2 class="about-headline" id="abt-headline">Мирелия</h2>
-    <p class="about-lead" id="abt-lead">Волшебство — в деталях. Каждый предмет, созданный нами, несёт в себе искру детской мечты.</p>
+    <p class="about-lead" id="abt-lead" data-i18n="about_lead">Волшебство — в деталях. Каждый предмет, созданный нами, несёт в себе искру детской мечты.</p>
     <div class="about-divider" id="abt-divider"></div>
     <div class="about-cards">
       <div class="acard" id="acard0">
         <span class="acard-icon">✦</span>
-        <div class="acard-label">От экрана к реальности</div>
-        <p>«Мирелия» — масштабная многосезонная анимационная вселенная. Мы создаем глубокие, красивые истории, а затем воплощаем их персонажей и атмосферу в реальной жизни. Наши игрушки, текстиль и товары для дома — физическое продолжение сказки, выполненное с особым вниманием к качеству и уюту.</p>
+        <div class="acard-label" data-i18n="acard0_label">От экрана к реальности</div>
+        <p data-i18n="acard0_text">«Мирелия» — масштабная многосезонная анимационная вселенная. Мы создаем глубокие, красивые истории, а затем воплощаем их персонажей и атмосферу в реальной жизни. Наши игрушки, текстиль и товары для дома — физическое продолжение сказки, выполненное с особым вниманием к качеству и уюту.</p>
       </div>
       <div class="acard" id="acard1">
         <span class="acard-icon">◈</span>
-        <div class="acard-label">Семья брендов</div>
-        <p>Наша творческая лаборатория постоянно расширяется. Братским проектом «Мирелии» выступает мультфильм «Аилин» — ещё одна уникальная история со своей душой и линейкой продуктов, которая эксклюзивно представлена на нашей платформе.</p>
+        <div class="acard-label" data-i18n="acard1_label">Семья брендов</div>
+        <p data-i18n="acard1_text">Наша творческая лаборатория постоянно расширяется. Братским проектом «Мирелии» выступает мультфильм «Аилин» — ещё одна уникальная история со своей душой и линейкой продуктов, которая эксклюзивно представлена на нашей платформе.</p>
       </div>
       <div class="acard" id="acard2">
         <span class="acard-icon">❋</span>
-        <div class="acard-label">Творческое пространство</div>
-        <p>Мы верим, что хороших сказок должно быть много. Поэтому наш сайт — интерактивная площадка и комьюнити. Мы открыты для сотрудничества и даём возможность другим авторам, художникам и брендам публиковать свои проекты, разделяющие нашу философию качества и волшебства.</p>
+        <div class="acard-label" data-i18n="acard2_label">Творческое пространство</div>
+        <p data-i18n="acard2_text">Мы верим, что хороших сказок должно быть много. Поэтому наш сайт — интерактивная площадка и комьюнити. Мы открыты для сотрудничества и даём возможность другим авторам, художникам и брендам публиковать свои проекты, разделяющие нашу философию качества и волшебства.</p>
       </div>
     </div>
   </div>
@@ -791,13 +810,13 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
 ════════════════════════════════════════ -->
 <section id="s6">
   <canvas id="fly-canvas"></canvas>
-  <div class="s6-head sec-title" id="s6t">Голоса из Мирелии</div>
-  <p class="s6-hint">Нажми на светлячка — он расскажет историю</p>
-  <div class="rcard" id="r0"><div class="rstars">★★★★★</div><p class="rtxt">«Дочь не хочет выходить из комнаты. Говорит, что там живут настоящие феникс и дракон.»</p><div class="rauth">— Анна М., 2 детей</div><button class="rclose" onclick="closeReview(0)">✕</button></div>
-  <div class="rcard" id="r1"><div class="rstars">★★★★★</div><p class="rtxt">«Полотенца такие мягкие, что ребёнок сам тянется после ванной.»</p><div class="rauth">— Мария К.</div><button class="rclose" onclick="closeReview(1)">✕</button></div>
-  <div class="rcard" id="r2"><div class="rstars">★★★★★</div><p class="rtxt">«Подарила на день рождения коробку Мирелии — именинник сказал, что это лучший подарок в жизни.»</p><div class="rauth">— Светлана Р.</div><button class="rclose" onclick="closeReview(2)">✕</button></div>
-  <div class="rcard" id="r3"><div class="rstars">★★★★★</div><p class="rtxt">«Сын засыпает теперь за 10 минут вместо часа. Магия работает.»</p><div class="rauth">— Дмитрий П.</div><button class="rclose" onclick="closeReview(3)">✕</button></div>
-  <div class="rcard" id="r4"><div class="rstars">★★★★★</div><p class="rtxt">«Я взрослый и тоже хочу этот проектор. Мир Тигрёнка — лучшее что я видела.»</p><div class="rauth">— Ольга В.</div><button class="rclose" onclick="closeReview(4)">✕</button></div>
+  <div class="s6-head sec-title" id="s6t" data-i18n="voices_title">Голоса из Мирелии</div>
+  <p class="s6-hint" data-i18n="s6_hint">Нажми на светлячка — он расскажет историю</p>
+  <div class="rcard" id="r0"><div class="rstars">★★★★★</div><p class="rtxt" data-i18n="review0_text">«Дочь не хочет выходить из комнаты. Говорит, что там живут настоящие феникс и дракон.»</p><div class="rauth" data-i18n="review0_auth">— Анна М., 2 детей</div><button class="rclose" onclick="closeReview(0)">✕</button></div>
+  <div class="rcard" id="r1"><div class="rstars">★★★★★</div><p class="rtxt" data-i18n="review1_text">«Полотенца такие мягкие, что ребёнок сам тянется после ванной.»</p><div class="rauth" data-i18n="review1_auth">— Мария К.</div><button class="rclose" onclick="closeReview(1)">✕</button></div>
+  <div class="rcard" id="r2"><div class="rstars">★★★★★</div><p class="rtxt" data-i18n="review2_text">«Подарила на день рождения коробку Мирелии — именинник сказал, что это лучший подарок в жизни.»</p><div class="rauth" data-i18n="review2_auth">— Светлана Р.</div><button class="rclose" onclick="closeReview(2)">✕</button></div>
+  <div class="rcard" id="r3"><div class="rstars">★★★★★</div><p class="rtxt" data-i18n="review3_text">«Сын засыпает теперь за 10 минут вместо часа. Магия работает.»</p><div class="rauth" data-i18n="review3_auth">— Дмитрий П.</div><button class="rclose" onclick="closeReview(3)">✕</button></div>
+  <div class="rcard" id="r4"><div class="rstars">★★★★★</div><p class="rtxt" data-i18n="review4_text">«Я взрослый и тоже хочу этот проектор. Мир Тигрёнка — лучшее что я видела.»</p><div class="rauth" data-i18n="review4_auth">— Ольга В.</div><button class="rclose" onclick="closeReview(4)">✕</button></div>
 </section>
 
 <!-- s7 удалён -->
@@ -806,19 +825,20 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
 <footer>
   <canvas id="const-canvas"></canvas>
   <div class="ft-logo">МИРЕЛИЯ</div>
-  <div class="ft-tag">Мир, где исполняются мечты</div>
+  <div class="ft-tag" data-i18n="footer_tag">Мир, где исполняются мечты</div>
   <nav class="ft-nav">
-    <a href="catalog.html">Каталог</a>
-    <a href="#s-chars">Персонажи</a>
-    <a href="#s6">Отзывы</a>
-    <a href="#">О бренде</a>
-    <a href="#">Доставка</a>
+    <a href="catalog.html" data-i18n="nav_catalog">Каталог</a>
+    <a href="#s-chars" data-i18n="nav_characters">Персонажи</a>
+    <a href="#s6" data-i18n="nav_reviews">Отзывы</a>
+    <a href="#" data-i18n="nav_about">О бренде</a>
+    <a href="#" data-i18n="nav_delivery">Доставка</a>
   </nav>
-  <div class="ft-copy">© 2025 МИРЕЛИЯ. Все права защищены.</div>
+  <div class="ft-copy" data-i18n="footer_copy">© 2025 МИРЕЛИЯ. Все права защищены.</div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="i18n.js"></script>
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
