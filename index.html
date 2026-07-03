@@ -120,29 +120,36 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 50px;display:fl
 }
 #hero-logo-text img{width:100%;height:auto;display:block}
 
-.hero-cta{
-  display:inline-block;padding:14px 44px;
-  border:1px solid var(--gold);color:var(--gold2);
-  font-family:'Cinzel',serif;font-size:12px;letter-spacing:.2em;
-  text-transform:uppercase;text-decoration:none;cursor:none;
-  position:relative;overflow:hidden;opacity:0;
-  transition:background .3s,color .3s;
-  background:rgba(4,8,20,.3);backdrop-filter:blur(4px);
-}
-.hero-cta::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,.18),transparent);animation:shim 3s infinite}
 @keyframes shim{0%{left:-100%}100%{left:200%}}
-.hero-cta:hover{background:rgba(201,168,76,.1);color:var(--gold3)}
 
-/* Scroll hint */
+/* Scroll hint — анимационный значок скролла (заменяет старую кнопку CTA) */
 .scroll-hint{
   position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  z-index:15;animation:fadeUpIn 1s 3s forwards;opacity:0
+  display:flex;flex-direction:column;align-items:center;
+  z-index:15;animation:fadeUpIn 1s 3s forwards;opacity:0;
+  text-decoration:none;cursor:none;
 }
 @keyframes fadeUpIn{to{opacity:1}}
-.scroll-hint span{font-size:10px;letter-spacing:.25em;color:rgba(201,168,76,.4);text-transform:uppercase}
-.scroll-bar{width:1px;height:44px;background:linear-gradient(180deg,var(--gold),transparent);animation:scrollP 2s infinite}
-@keyframes scrollP{0%,100%{opacity:.3}50%{opacity:1}}
+.scroll-mouse{
+  width:26px;height:42px;border-radius:14px;
+  border:1.5px solid rgba(201,168,76,.55);
+  position:relative;
+  box-shadow:0 0 14px rgba(201,168,76,.12);
+  transition:border-color .3s,box-shadow .3s;
+}
+.scroll-hint:hover .scroll-mouse{border-color:rgba(232,201,106,.85);box-shadow:0 0 18px rgba(201,168,76,.25)}
+.scroll-dot{
+  position:absolute;top:7px;left:50%;width:4px;height:8px;margin-left:-2px;
+  border-radius:2px;background:var(--gold2);
+  box-shadow:0 0 6px rgba(232,201,106,.8);
+  animation:scrollDot 1.8s ease-in-out infinite;
+}
+@keyframes scrollDot{
+  0%{opacity:0;transform:translateY(0)}
+  25%{opacity:1}
+  70%{opacity:0;transform:translateY(16px)}
+  100%{opacity:0;transform:translateY(0)}
+}
 
 /* ════════════════════════
    SCENE 2 — FOREST (pinned)
@@ -442,7 +449,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 50px;display:fl
   #s1{height:850vh}
   #hero-emblem{width:min(190px,55vw)}
   #hero-logo-text{width:min(280px,78vw);margin-bottom:28px}
-  .hero-cta{padding:12px 32px;font-size:11px}
+  .scroll-mouse{width:22px;height:36px}
+  .scroll-dot{height:7px;top:6px}
   #s3{padding:50px 4% 70px}
   .sec-sub{letter-spacing:.1em;margin:8px 0 44px}
   .crystals{grid-template-columns:repeat(2,1fr)!important;gap:12px;max-width:100%}
@@ -482,7 +490,7 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
 <canvas id="stars"></canvas>
 
 <nav>
-  <div class="nav-logo">МИРЕЛИЯ</div>
+  <div class="nav-logo" data-i18n="brand_name">МИРЕЛИЯ</div>
   <div class="nav-links">
     <a href="catalog.html" data-i18n="nav_catalog">Каталог</a>
     <a href="#s-chars" data-i18n="nav_characters">Персонажи</a>
@@ -538,7 +546,6 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
       <div id="hero-logo-text">
         <img src="logo_text.png" alt="МИРЕЛИЯ — Мир, где исполняются мечты" data-i18n-alt="alt_logo_text">
       </div>
-      <a href="#s3" class="hero-cta" data-i18n="hero_cta">Войти в мир</a>
     </div>
 
     <!-- Видео-слой (автоплей после анимаций) -->
@@ -548,10 +555,9 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
       </video>
     </div>
 
-    <div class="scroll-hint" id="scroll-hint">
-      <span data-i18n="hero_scroll_hint">Прокрути вниз</span>
-      <div class="scroll-bar"></div>
-    </div>
+    <a href="#s3" class="scroll-hint" id="scroll-hint" data-i18n-aria="hero_scroll_hint" aria-label="Прокрути вниз">
+      <div class="scroll-mouse"><div class="scroll-dot"></div></div>
+    </a>
   </div>
 </section>
 
@@ -782,7 +788,7 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
 <section id="s-about">
   <div class="about-inner">
     <div class="about-eyebrow" id="abt-eyebrow" data-i18n="about_eyebrow">О проекте</div>
-    <h2 class="about-headline" id="abt-headline">Мирелия</h2>
+    <h2 class="about-headline" id="abt-headline" data-i18n="brand_name_title">Мирелия</h2>
     <p class="about-lead" id="abt-lead" data-i18n="about_lead">Волшебство — в деталях. Каждый предмет, созданный нами, несёт в себе искру детской мечты.</p>
     <div class="about-divider" id="abt-divider"></div>
     <div class="about-cards">
@@ -824,7 +830,7 @@ footer{position:relative;z-index:1;min-height:50vh;background:linear-gradient(18
 <!-- FOOTER -->
 <footer>
   <canvas id="const-canvas"></canvas>
-  <div class="ft-logo">МИРЕЛИЯ</div>
+  <div class="ft-logo" data-i18n="brand_name">МИРЕЛИЯ</div>
   <div class="ft-tag" data-i18n="footer_tag">Мир, где исполняются мечты</div>
   <nav class="ft-nav">
     <a href="catalog.html" data-i18n="nav_catalog">Каталог</a>
@@ -982,13 +988,11 @@ document.addEventListener('mouseup',()=>gsap.to(cur,{scale:1,duration:.15}));
 })();
 
 /* ── Hero entrance ── */
-gsap.set('.hero-cta',{opacity:0,y:20});
 gsap.set('#hero-emblem',{opacity:0,scale:.82});
 gsap.set('#hero-logo-text',{opacity:0,y:20});
 gsap.timeline({delay:.3})
   .to('#hero-emblem',{opacity:1,scale:1,duration:1.6,ease:'power2.out'})
-  .to('#hero-logo-text',{opacity:1,y:0,duration:1.1,ease:'power2.out'},'-=.7')
-  .to('.hero-cta',{opacity:1,y:0,duration:.8},'-=.3');
+  .to('#hero-logo-text',{opacity:1,y:0,duration:1.1,ease:'power2.out'},'-=.7');
 
 /* ── Hero scroll: logo fades → circle opens → characters revealed ── */
 /* ── Hero scroll: зум леса → плавный переход в зверьков → видео ── */

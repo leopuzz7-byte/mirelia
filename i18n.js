@@ -8,6 +8,7 @@ const I18N_KEY = 'mirelia_lang';
 /* ── Словарь статичных строк сайта ── */
 const I18N = {
   brand_name:{ru:'МИРЕЛИЯ',en:'MIRELIA',es:'MIRELIA'},
+  brand_name_title:{ru:'Мирелия',en:'Mirelia',es:'Mirelia'},
 
   nav_home:{ru:'Главная',en:'Home',es:'Inicio'},
   nav_catalog:{ru:'Каталог',en:'Catalog',es:'Catálogo'},
