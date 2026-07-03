@@ -25,6 +25,7 @@ const I18N = {
   hero_welcome_title:{ru:'в Мирелию',en:'to Mirelia',es:'a Mirelia'},
   hero_cta:{ru:'Войти в мир',en:'Enter the World',es:'Entrar al Mundo'},
   hero_scroll_hint:{ru:'Прокрути вниз',en:'Scroll down',es:'Desplázate hacia abajo'},
+  hero_logo_src:{ru:'logo_text.png',en:'logo_text_en.png',es:'logo_text_es.png'},
   alt_forest_animals:{ru:'Зверьки в лесу Мирелии',en:'Little animals in the Mirelia forest',es:'Animalitos en el bosque de Mirelia'},
   alt_emblem:{ru:'Мирелия',en:'Mirelia',es:'Mirelia'},
   alt_logo_text:{ru:'МИРЕЛИЯ — Мир, где исполняются мечты',en:'MIRELIA — A World Where Dreams Come True',es:'MIRELIA — Un Mundo Donde se Cumplen los Sueños'},
@@ -325,6 +326,9 @@ function applyI18n(){
   });
   document.querySelectorAll('[data-i18n-alt]').forEach(el=>{
     el.alt = t(el.getAttribute('data-i18n-alt'));
+  });
+  document.querySelectorAll('[data-i18n-src]').forEach(el=>{
+    el.src = t(el.getAttribute('data-i18n-src'));
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
     el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
